@@ -181,10 +181,14 @@ Yes. The plugin includes shortcodes for the cookie list and for displaying the c
 - Added Matomo integration settings (Matomo URL + Site ID) in the Settings tab
 - Added new consent behavior toggle for Matomo: strict no-tracking on reject (default) or optional anonymous cookieless measurement on reject
 - Added automatic Matomo consent-mode switching: full tracking starts immediately after later analytics consent
+- Fixed duplicate Matomo pageview call on initial page load when existing analytics consent was already stored
+- Fixed strict Matomo mode: script is now lazy-loaded only after analytics consent is granted, preventing early script execution
 - Added new cookie presets: Matomo Analytics and Matomo Tag Manager
-- Added new script blocking presets: Matomo Analytics and Matomo Tag Manager
+- Added new script blocking presets: Matomo Analytics and Matomo Tag Manager with dynamic host-scoped regex (www + non-www)
 - Added Matomo guidance section in the About tab, including recommended legal-safe deployment mode
-- Added admin translations for new Matomo Settings/About/presets texts across supported languages
+- Added installation screenshots with lightbox preview for Matomo Tag setup directly in the Settings tab
+- Added bulk delete functionality with checkboxes and select-all in the Cookies and Blocking admin lists
+- Added admin translations for all new texts (Matomo settings, bulk actions, screenshot labels) across all 8 supported languages
 
 ### 1.0.2
 
@@ -217,6 +221,10 @@ Yes. The plugin includes shortcodes for the cookie list and for displaying the c
 - Added predefined cookie and blocking presets for Google Analytics, Google Ads, and Facebook Pixel
 
 ## Upgrade Notice
+
+### 1.0.3
+
+Version 1.0.3 adds full Matomo Analytics integration with strict no-tracking and optional anonymous cookieless modes, fixes duplicate pageview and lazy-loading issues, adds host-scoped Matomo blocking presets, introduces bulk delete with checkboxes in the Cookies and Blocking lists, adds Matomo installation screenshots with lightbox in the Settings tab, and expands translation coverage across all 8 supported languages.
 
 ### 1.0.2
 
