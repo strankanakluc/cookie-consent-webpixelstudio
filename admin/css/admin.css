@@ -430,6 +430,53 @@
 	color: var(--cc-gray-600);
 }
 
+/* Matomo screenshots — clean thumbnails, no card box */
+.ccwps-matomo-gallery {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	margin-top: 8px;
+}
+
+.ccwps-matomo-shot {
+	margin: 0;
+	padding: 0;
+	border: none;
+	background: transparent;
+	box-shadow: none;
+}
+
+.ccwps-matomo-shot-trigger {
+	display: block;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	cursor: zoom-in;
+}
+
+.ccwps-matomo-shot img {
+	display: block;
+	width: 300px;
+	height: auto;
+	border-radius: 6px;
+	border: 1px solid var(--cc-gray-200);
+	transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.ccwps-matomo-shot-trigger:hover img,
+.ccwps-matomo-shot-trigger:focus-visible img {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 20px rgba(0,0,0,.13);
+}
+
+.ccwps-matomo-shot figcaption {
+	margin-top: 6px;
+	text-align: center;
+	font-size: 12px;
+	font-weight: 600;
+	color: var(--cc-gray-600);
+}
+
 .ccwps-gtm-lightbox[hidden] {
 	display: none;
 }
