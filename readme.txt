@@ -8,11 +8,11 @@ Stable tag: 1.0.3
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-GDPR & ePrivacy compliant cookie consent manager with Google Consent Mode v2/v3, full customization, consent logging and script blocking.
+Cookie consent manager designed primarily for GDPR and EU ePrivacy cookie requirements, with Google Consent Mode v2/v3, full customization, consent logging and script blocking.
 
 == Description ==
 
-**Cookie Consent by Web Pixel Studio** is a comprehensive, fully customisable cookie consent solution for WordPress. Built on the [orest bida cookieconsent library](https://cookieconsent.orestbida.com/), it extends it with a full WordPress admin panel, database consent logging and advanced script blocking.
+**Cookie Consent by Web Pixel Studio** is a comprehensive, fully customisable cookie consent solution for WordPress, built primarily for GDPR and EU cookie/ePrivacy compliance workflows. Built on the [orest bida cookieconsent library](https://cookieconsent.orestbida.com/), it extends it with a full WordPress admin panel, database consent logging and advanced script blocking.
 
 = What this plugin offers =
 

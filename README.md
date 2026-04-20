@@ -16,9 +16,11 @@
 
 ## Description
 
-Cookie Consent by Web Pixel Studio gives you a modern, customizable, GDPR-ready cookie banner for WordPress without unnecessary complexity.
+Cookie Consent by Web Pixel Studio gives you a modern, customizable cookie banner for WordPress designed primarily for GDPR and EU cookie/ePrivacy requirements.
 
 It combines a polished frontend experience with practical compliance tools: Google Consent Mode v2 and v3 support, script blocking, cookie declarations, consent logging, multilingual presets, and an admin panel built for real websites.
+
+Built-in translations are available in Slovak, English, Czech, German, French, Spanish, Polish, Hungarian, and Italian.
 
 If you want a consent plugin that looks professional, gives visitors clear choices, and keeps you in control of cookies and third-party scripts, this plugin is built for that.
 
@@ -58,7 +60,7 @@ If you want a consent plugin that looks professional, gives visitors clear choic
 - Consent logging with unique consent ID and CSV export
 - Floating consent icon to reopen settings anytime
 - Import and export of plugin settings in JSON
-- Built-in language presets and editable frontend texts
+- Built-in language presets and editable frontend texts (Slovak, English, Czech, German, French, Spanish, Polish, Hungarian, Italian)
 - Custom colors, buttons, font, banner position, and icon style
 
 ## What You Can Configure
