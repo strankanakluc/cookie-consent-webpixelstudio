@@ -32,6 +32,19 @@ class CCWPS_Admin {
 		add_action( 'admin_post_ccwps_export_csv',      [ $this, 'export_csv' ] );
 		add_action( 'admin_post_ccwps_export_settings', [ $this, 'export_settings' ] );
 		add_action( 'admin_post_ccwps_import_settings', [ $this, 'import_settings' ] );
+		add_filter( 'plugin_action_links_' . CCWPS_PLUGIN_BASENAME, [ $this, 'add_plugin_action_links' ] );
+	}
+
+	public function add_plugin_action_links( array $links ): array {
+		$settings_link = sprintf(
+			'<a href="%s">%s</a>',
+			esc_url( admin_url( 'admin.php?page=ccwps' ) ),
+			esc_html__( 'Nastavenia', 'cookie-consent-webpixelstudio' )
+		);
+
+		array_unshift( $links, $settings_link );
+
+		return $links;
 	}
 
 	public function add_menu(): void {
