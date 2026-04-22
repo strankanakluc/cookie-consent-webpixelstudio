@@ -8,7 +8,7 @@ Stable tag: 1.04
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Cookie consent manager designed primarily for GDPR and EU ePrivacy cookie requirements, with Google Consent Mode v2/v3, full customization, consent logging and script blocking.
+GDPR/ePrivacy cookie consent manager for WordPress with Google Consent Mode v2/v3, script blocking, consent logging, and full banner customization.
 
 == Description ==
 
@@ -175,10 +175,10 @@ The consent cookie is set client-side (not httpOnly) so the frontend can read it
 == Upgrade Notice ==
 
 = 1.04 =
-Version 1.04 adds new Google Targeting and Google Preferences presets with auto-block rules, improves localization coverage and runtime translation behavior for cookie descriptions, removes Powered by from banner layouts (kept in floating tip), and adds a direct plugin settings action link in the Plugins list.
+Adds plugin settings quick link, new Google Targeting/Preferences presets with auto-block rules, improved localization for consent labels and cookie descriptions, and removes Powered by from banner layouts (still shown in consent tip popup).
 
 = 1.0.3 =
-Version 1.0.3 adds full Matomo Analytics integration with strict no-tracking and optional anonymous cookieless modes, fixes duplicate pageview and lazy-loading issues, adds host-scoped Matomo blocking presets, introduces bulk delete with checkboxes in the Cookies and Blocking lists, adds Matomo installation screenshots with lightbox in the Settings tab, and expands translation coverage across all 8 supported languages.
+Adds Matomo integration (URL + Site ID) with strict no-tracking and optional anonymous mode, fixes duplicate pageview and lazy-loading behavior, adds Matomo cookie/blocking presets, introduces bulk delete in Cookies and Blocking lists, and expands translations.
 
 = 1.0.2 =
 Includes major 1.0.2 improvements: banner visibility fix, new Branding options (custom logo + link), refined layouts, stronger translation coverage, and more reliable full export/import roundtrip.

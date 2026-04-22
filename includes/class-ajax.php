@@ -35,7 +35,6 @@ class CCWPS_Ajax {
 		add_action( 'wp_ajax_ccwps_reset_settings',      [ $this, 'reset_settings' ] );
 		add_action( 'wp_ajax_ccwps_save_admin_lang',     [ $this, 'save_admin_lang' ] );
 		add_action( 'wp_ajax_ccwps_request_cookie_preset', [ $this, 'request_cookie_preset' ] );
-		add_action( 'wp_ajax_ccwps_get_theme_palette',  [ $this, 'get_theme_palette_colors' ] );
 	}
 
 	/* ---- PUBLIC ---- */
@@ -374,18 +373,6 @@ class CCWPS_Ajax {
 		}
 
 		update_option( $option_name, $stored, false );
-	}
-
-	public function get_theme_palette_colors(): void {
-		check_ajax_referer( 'ccwps_admin', 'nonce' );
-		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( -1 );
-		}
-
-		// Delegate to the shared extraction logic in CCWPS_Admin.
-		$palette = CCWPS_Admin::extract_palette_colors();
-
-		wp_send_json_success( [ 'palette' => $palette ] );
 	}
 
 	/* ---- HELPERS ---- */
