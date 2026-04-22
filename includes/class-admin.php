@@ -858,10 +858,10 @@ class CCWPS_Admin {
 	 * Extract color palette from all available sources.
 	 * Used by both wp_localize_script (page load) and the AJAX refresh endpoint.
 	 *
-	 * Sources tried in order:
-	 *  1. WP Global Styles API — wp_get_global_settings() (WP 5.9+, covers FSE themes + user customizations)
-	 *  2. theme.json directly — child theme first, then parent
-	 *  3. Elementor global colors — system_colors + custom_colors from the active kit
+	 * Sources tried in order (strict priority, no mixing):
+	 *  1. Active theme.json palette (child theme, then parent)
+	 *  2. WP Global Styles API "theme" palette only
+	 *  3. Elementor global colors (system + custom) as fallback
 	 *
 	 * @return string[] Array of validated hex color strings e.g. ['#000000', '#ffffff']
 	 */
@@ -869,95 +869,88 @@ class CCWPS_Admin {
 		$palette = [];
 
 		// ------------------------------------------------------------------
-		// 1. WP Global Styles API (WP 5.9+)
-		//    Returns merged palette from theme.json + user customizations.
+		// 1) Active theme.json palette (child theme first, then parent).
+		// ------------------------------------------------------------------
+		$json_files = array_unique( [
+			get_stylesheet_directory() . '/theme.json',
+			get_template_directory() . '/theme.json',
+		] );
+
+		foreach ( $json_files as $path ) {
+			if ( ! file_exists( $path ) ) {
+				continue;
+			}
+
+			$raw = function_exists( 'wp_json_file_get_contents' )
+				? wp_json_file_get_contents( $path )
+				: json_decode( file_get_contents( $path ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+
+			if ( ! is_array( $raw ) || empty( $raw['settings']['color']['palette'] ) || ! is_array( $raw['settings']['color']['palette'] ) ) {
+				continue;
+			}
+
+			$raw_palette = $raw['settings']['color']['palette'];
+			$candidates  = [];
+
+			// Most themes: flat array [{name, slug, color}, ...]
+			if ( isset( $raw_palette[0] ) ) {
+				$candidates[] = $raw_palette;
+			} else {
+				// Some themes: keyed arrays ['theme' => [...], ...]
+				if ( ! empty( $raw_palette['theme'] ) && is_array( $raw_palette['theme'] ) ) {
+					$candidates[] = $raw_palette['theme'];
+				}
+				if ( ! empty( $raw_palette['custom'] ) && is_array( $raw_palette['custom'] ) ) {
+					$candidates[] = $raw_palette['custom'];
+				}
+			}
+
+			foreach ( $candidates as $colors ) {
+				foreach ( $colors as $color ) {
+					$hex = self::resolve_color( isset( $color['color'] ) ? (string) $color['color'] : '' );
+					if ( $hex && ! in_array( $hex, $palette, true ) ) {
+						$palette[] = $hex;
+					}
+				}
+			}
+
+			if ( ! empty( $palette ) ) {
+				return $palette;
+			}
+		}
+
+		// ------------------------------------------------------------------
+		// 2) WP Global Styles API - theme palette only (no default/custom).
 		// ------------------------------------------------------------------
 		if ( function_exists( 'wp_get_global_settings' ) ) {
 			$global = wp_get_global_settings( [ 'color', 'palette' ] );
-			if ( is_array( $global ) ) {
-				// Priority: custom (user-saved overrides) > theme > default
-				foreach ( [ 'custom', 'theme', 'default' ] as $source ) {
-					if ( ! empty( $global[ $source ] ) && is_array( $global[ $source ] ) ) {
-						foreach ( $global[ $source ] as $color ) {
-							$hex = self::resolve_color( isset( $color['color'] ) ? (string) $color['color'] : '' );
+			if ( is_array( $global ) && ! empty( $global['theme'] ) && is_array( $global['theme'] ) ) {
+				foreach ( $global['theme'] as $color ) {
+					$hex = self::resolve_color( isset( $color['color'] ) ? (string) $color['color'] : '' );
+					if ( $hex && ! in_array( $hex, $palette, true ) ) {
+						$palette[] = $hex;
+					}
+				}
+			}
+
+			if ( ! empty( $palette ) ) {
+				return $palette;
+			}
+		}
+
+		// ------------------------------------------------------------------
+		// 3) Elementor global colors as fallback if theme palette is unavailable.
+		// ------------------------------------------------------------------
+		$kit_id = (int) get_option( 'elementor_active_kit', 0 );
+		if ( $kit_id > 0 ) {
+			$kit_settings = get_post_meta( $kit_id, '_elementor_page_settings', true );
+			if ( is_array( $kit_settings ) ) {
+				foreach ( [ 'system_colors', 'custom_colors' ] as $group ) {
+					if ( ! empty( $kit_settings[ $group ] ) && is_array( $kit_settings[ $group ] ) ) {
+						foreach ( $kit_settings[ $group ] as $item ) {
+							$hex = self::resolve_color( isset( $item['color'] ) ? (string) $item['color'] : '' );
 							if ( $hex && ! in_array( $hex, $palette, true ) ) {
 								$palette[] = $hex;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		// ------------------------------------------------------------------
-		// 2. theme.json directly (child theme first, then parent)
-		//    Fallback for sites without WP 5.9+ or non-FSE themes that still
-		//    ship a theme.json.
-		// ------------------------------------------------------------------
-		if ( empty( $palette ) ) {
-			$json_files = array_unique( [
-				get_stylesheet_directory() . '/theme.json',
-				get_template_directory() . '/theme.json',
-			] );
-
-			foreach ( $json_files as $path ) {
-				if ( ! file_exists( $path ) ) {
-					continue;
-				}
-
-				$raw = function_exists( 'wp_json_file_get_contents' )
-					? wp_json_file_get_contents( $path )
-					: json_decode( file_get_contents( $path ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
-
-				if ( ! is_array( $raw ) ) {
-					continue;
-				}
-
-				$candidates = [];
-				if ( ! empty( $raw['settings']['color']['palette'] ) && is_array( $raw['settings']['color']['palette'] ) ) {
-					$flat = $raw['settings']['color']['palette'];
-					// May be a flat array [ {color, name}, ... ] or keyed ['theme' => [...]]
-					if ( isset( $flat[0] ) ) {
-						$candidates[] = $flat;
-					} else {
-						foreach ( [ 'theme', 'custom', 'default' ] as $key ) {
-							if ( ! empty( $flat[ $key ] ) && is_array( $flat[ $key ] ) ) {
-								$candidates[] = $flat[ $key ];
-							}
-						}
-					}
-				}
-
-				foreach ( $candidates as $colors ) {
-					foreach ( $colors as $color ) {
-						$hex = self::resolve_color( isset( $color['color'] ) ? (string) $color['color'] : '' );
-						if ( $hex && ! in_array( $hex, $palette, true ) ) {
-							$palette[] = $hex;
-						}
-					}
-				}
-
-				if ( ! empty( $palette ) ) {
-					break;
-				}
-			}
-		}
-
-		// ------------------------------------------------------------------
-		// 3. Elementor global colors (system + custom palette in the active kit)
-		// ------------------------------------------------------------------
-		if ( empty( $palette ) ) {
-			$kit_id = (int) get_option( 'elementor_active_kit', 0 );
-			if ( $kit_id > 0 ) {
-				$kit_settings = get_post_meta( $kit_id, '_elementor_page_settings', true );
-				if ( is_array( $kit_settings ) ) {
-					foreach ( [ 'system_colors', 'custom_colors' ] as $group ) {
-						if ( ! empty( $kit_settings[ $group ] ) && is_array( $kit_settings[ $group ] ) ) {
-							foreach ( $kit_settings[ $group ] as $item ) {
-								$hex = self::resolve_color( isset( $item['color'] ) ? (string) $item['color'] : '' );
-								if ( $hex && ! in_array( $hex, $palette, true ) ) {
-									$palette[] = $hex;
-								}
 							}
 						}
 					}
@@ -992,7 +985,7 @@ class CCWPS_Admin {
 			$slug = $m[1];
 			if ( function_exists( 'wp_get_global_settings' ) ) {
 				$global = wp_get_global_settings( [ 'color', 'palette' ] );
-				foreach ( [ 'theme', 'custom', 'default' ] as $src ) {
+				foreach ( [ 'theme', 'custom' ] as $src ) {
 					if ( ! empty( $global[ $src ] ) && is_array( $global[ $src ] ) ) {
 						foreach ( $global[ $src ] as $preset ) {
 							if ( isset( $preset['slug'], $preset['color'] ) && $preset['slug'] === $slug ) {
