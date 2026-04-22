@@ -1186,10 +1186,14 @@ span.required { color: var(--cc-red); }
 }
 
 .ccwps-swatches-panel {
-	display: flex;
+	display: none;
 	flex-direction: column;
 	gap: 4px;
 	margin-top: 4px;
+}
+
+.ccwps-swatches-panel.is-open {
+	display: flex;
 }
 
 .ccwps-swatches-grid {

@@ -881,7 +881,7 @@
 			+ '<span class="ccwps-swatches-toggle-label">' + i18nToggle + '</span>'
 			+ '<span class="ccwps-swatches-toggle-arrow">▾</span>'
 			+ '</button>'
-			+ '<div class="ccwps-swatches-panel" hidden>' + swatchGridHtml + '</div>'
+			+ '<div class="ccwps-swatches-panel">' + swatchGridHtml + '</div>'
 			+ '</div>';
 
 		// Insert swatches after every reset button (each reset button is inside .ccwps-color-field-wrap)
@@ -896,12 +896,12 @@
 			var expanded = $btn.attr('aria-expanded') === 'true';
 
 			if (expanded) {
-				$panel.attr('hidden', '');
+				$panel.removeClass('is-open');
 				$btn.attr('aria-expanded', 'false');
 				$btn.find('.ccwps-swatches-toggle-label').text(i18nToggle);
 				$btn.find('.ccwps-swatches-toggle-arrow').text('▾');
 			} else {
-				$panel.removeAttr('hidden');
+				$panel.addClass('is-open');
 				$btn.attr('aria-expanded', 'true');
 				$btn.find('.ccwps-swatches-toggle-label').text(i18nHide);
 				$btn.find('.ccwps-swatches-toggle-arrow').text('▴');
