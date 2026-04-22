@@ -100,6 +100,328 @@
 		return labels[normalized] || labels[base] || labels.en;
 	}
 
+	function getPresetCookieDescriptionTranslations() {
+		return {
+			sk: {
+				AEC: 'Používa sa na zabezpečenie, aby požiadavky v rámci relácie vykonával používateľ a nie iné stránky.',
+				SOCS: 'Ukladá stav používateľa vzhľadom na jeho voľby cookies.',
+				'^_ga_': 'Používa sa službou Google Analytics na zhromažďovanie údajov o tom, koľkokrát používateľ navštívil web, vrátane dátumov prvej a poslednej návštevy.',
+				_ga: 'Registruje jedinečné ID, ktoré sa používa na generovanie štatistických údajov o tom, ako návštevník používa web.',
+				'_gat_gtag_': 'Používa sa službou Google Analytics na obmedzenie počtu požiadaviek na jej službu.',
+				_gid: 'Používa sa na sledovanie správania návštevníkov webu a ich rozpoznanie počas rôznych relácií, aby Google Analytics mohlo analyzovať návštevnosť a interakcie.',
+				IDE: 'Používa sa službou Google DoubleClick na sledovanie správania používateľa a personalizáciu reklám podľa predchádzajúcich interakcií.',
+				_gcl_au: 'Používa sa službou Google AdSense na sledovanie interakcií používateľov s reklamami a optimalizáciu reklamného obsahu.',
+				_fbp: 'Marketingová cookie služby Facebook Pixel na identifikáciu návštevníkov a sledovanie naprieč webmi používajúcimi Facebook reklamy.',
+				'^_pk_id': 'Ukladá jedinečné ID návštevníka používané službou Matomo Analytics na rozpoznanie vracajúcich sa návštevníkov.',
+				'^_pk_ses': 'Relačná cookie služby Matomo Analytics, ktorá dočasne ukladá údaje o zobrazeniach stránok počas aktuálnej návštevy.',
+				'^_pk_ref': 'Ukladá atribučné údaje (referrer/kampaň) pre reporty Matomo Analytics.',
+				mtm_consent: 'Ukladá stav súhlasu Matomo pre tohto návštevníka.',
+				mtm_cookie_consent: 'Ukladá stav súhlasu s cookies pre Matomo pri použití režimu cookie-consent.',
+				ccwps_consent: 'Ukladá voľby súhlasu návštevníka v tomto plugine, aby zostali vybrané kategórie rešpektované pri ďalších načítaniach stránky.',
+				ccwps_version: 'Ukladá verziu konfigurácie súhlasu v plugine, aby sa po zmene nastavení mohol vyžiadať nový súhlas.',
+				'__Secure-1PAPISID / 3PAPISID': 'Používa sa na personalizáciu reklám a meranie interakcií. Súvisí s vaším Google účtom.',
+				'__Secure-1PSID / 3PSID': 'Obsahujú šifrované informácie o vašom Google ID a poslednom čase prihlásenia. Kľúčové pre vašu identitu.',
+				'__Secure-1PSIDCC / 3PSIDCC': 'Slúžia na zabezpečenie a ukladanie preferencií používateľa pri zobrazovaní reklám Google.',
+				'__Secure-1PSIDTS / 3PSIDTS': 'Časová pečiatka a zabezpečenie; pomáhajú detegovať podozrivú aktivitu a predchádzať podvodom.',
+				'__Secure-BUCKET': 'Interný identifikátor na priraďovanie používateľa k experimentálnym funkciám (Google A/B testy).',
+				ADS_VISITOR_ID: 'Identifikátor návštevníka na sledovanie interakcie s reklamami.',
+				APISID: 'Používa sa na identifikáciu používateľa pri načítaní vložených Google služieb (napr. Maps alebo YouTube) na iných weboch.',
+				SAPISID: 'Bezpečná API verzia identity cookie pre požiadavky na Google služby a prevenciu podvodov.',
+				SID: 'Podpísaný a šifrovaný identifikátor Google účtu používaný na udržiavanie prihlásenej relácie.',
+				SSID: 'Príbuzná cookie k SID nastavená iba pre HTTPS na ochranu relácie v zabezpečenom kontexte.',
+				HSID: 'Používa sa na overenie identity používateľa a prevenciu podvodného použitia prihlasovacích údajov.',
+				NID: 'Ukladá jedinečné ID, preferencie vyhľadávania a informácie o personalizácii reklám.',
+				OTZ: 'Súhrnné štatistiky o návštevnosti a informácie o verzii vyhľadávacieho nástroja.',
+				S: 'Identifikátor relácie pre platobné služby Google (billing UI), ktorý drží stav nákupu alebo fakturácie.',
+				SEARCH_SAMESITE: 'Pomáha chrániť proti CSRF útokom tým, že cookies sú odosielané iba v bezpečnom kontexte.',
+				SIDCC: 'Bezpečnostná cookie pre doručovanie služieb Google a ochranu pred podvodmi.'
+			},
+			en: {
+				AEC: 'Used to ensure that requests within a session are made by the user and not by other pages.',
+				SOCS: 'Stores the user\'s state regarding their cookie choices.',
+				'^_ga_': 'Used by Google Analytics to collect data on how many times a user has visited the website, including first and last visit dates.',
+				_ga: 'Registers a unique ID used to generate statistical data on how the visitor uses the website.',
+				'_gat_gtag_': 'Used by Google Analytics to limit the number of requests.',
+				_gid: 'Tracks visitor behavior across sessions so Google Analytics can analyze traffic and interactions.',
+				IDE: 'Used by Google DoubleClick to track user behavior and personalize ads based on previous interactions.',
+				_gcl_au: 'Used by Google AdSense to track ad interactions and optimize ad content.',
+				_fbp: 'Facebook Pixel marketing cookie used to identify visitors and track them across websites using Facebook ads.',
+				'^_pk_id': 'Stores a unique visitor ID used by Matomo Analytics to recognize returning visitors.',
+				'^_pk_ses': 'Matomo Analytics session cookie that temporarily stores page view data during the current visit.',
+				'^_pk_ref': 'Stores attribution details (referrer/campaign) for Matomo Analytics reports.',
+				mtm_consent: 'Stores Matomo consent status for this visitor.',
+				mtm_cookie_consent: 'Stores Matomo cookie-consent status when cookie-consent mode is used.',
+				ccwps_consent: 'Stores visitor consent choices in this plugin so selected categories remain respected on future page loads.',
+				ccwps_version: 'Stores consent configuration version in the plugin to detect changes and request consent again when needed.',
+				'__Secure-1PAPISID / 3PAPISID': 'Used for ad personalization and interaction measurement. Linked to your Google account.',
+				'__Secure-1PSID / 3PSID': 'Contains encrypted details about your Google account identity and recent sign-in time.',
+				'__Secure-1PSIDCC / 3PSIDCC': 'Used for security and storing user ad-related preferences in Google services.',
+				'__Secure-1PSIDTS / 3PSIDTS': 'Timestamp and security cookie helping detect suspicious activity and reduce fraud.',
+				'__Secure-BUCKET': 'Internal identifier used to assign users to Google experimental features (A/B tests).',
+				ADS_VISITOR_ID: 'Visitor identifier used to track interactions with ads.',
+				APISID: 'Used to identify users when embedded Google services (like Maps or YouTube) are loaded on other sites.',
+				SAPISID: 'Secure API identity cookie used for background Google service requests and fraud prevention.',
+				SID: 'Signed and encrypted Google account identifier used to maintain logged-in sessions.',
+				SSID: 'Secure-only companion cookie used for identity verification over HTTPS.',
+				HSID: 'Used to verify user identity and help prevent fraudulent use of login credentials.',
+				NID: 'Stores unique identifier, search preferences, and ad personalization information.',
+				OTZ: 'Aggregated usage statistics and search engine version indicators.',
+				S: 'Session identifier used by Google billing interfaces to keep purchase or billing state.',
+				SEARCH_SAMESITE: 'Helps protect against CSRF attacks by ensuring cookies are sent only in safe contexts.',
+				SIDCC: 'Security cookie tied to Google services and fraud protection.'
+			},
+			cs: {
+				AEC: 'Používá se k zajištění, aby požadavky v rámci relace prováděl uživatel a ne jiné stránky.',
+				SOCS: 'Ukládá stav uživatele vzhledem k jeho volbám cookies.',
+				'^_ga_': 'Používá se službou Google Analytics ke sběru údajů o tom, kolikrát uživatel navštívil web, včetně data první a poslední návštěvy.',
+				_ga: 'Registruje jedinečné ID používané ke generování statistických údajů o tom, jak návštěvník web používá.',
+				'_gat_gtag_': 'Používá se službou Google Analytics k omezení počtu požadavků na službu.',
+				_gid: 'Používá se ke sledování chování návštěvníků webu a jejich rozpoznání během různých relací, aby Google Analytics mohlo analyzovat návštěvnost a interakce.',
+				IDE: 'Používá Google DoubleClick ke sledování chování uživatele a personalizaci reklam podle předchozích interakcí.',
+				_gcl_au: 'Používá Google AdSense ke sledování interakcí uživatelů s reklamami a optimalizaci reklamního obsahu.',
+				_fbp: 'Marketingová cookie služby Facebook Pixel pro identifikaci návštěvníků a sledování napříč weby používajícími reklamy Facebooku.',
+				'^_pk_id': 'Ukládá jedinečné ID návštěvníka používané službou Matomo Analytics k rozpoznání vracejících se návštěvníků.',
+				'^_pk_ses': 'Relační cookie služby Matomo Analytics, která dočasně ukládá data o zobrazeních stránek během aktuální návštěvy.',
+				'^_pk_ref': 'Ukládá atribuční údaje (odkaz/kampaň) pro reporty Matomo Analytics.',
+				mtm_consent: 'Ukládá stav souhlasu Matomo pro tohoto návštěvníka.',
+				mtm_cookie_consent: 'Ukládá stav souhlasu s cookies pro Matomo při použití režimu cookie-consent.',
+				ccwps_consent: 'Ukládá volby souhlasu návštěvníka v tomto pluginu, aby vybrané kategorie zůstaly respektované při dalších načteních stránky.',
+				ccwps_version: 'Ukládá verzi konfigurace souhlasu v pluginu, aby bylo možné po změně nastavení vyžádat nový souhlas.',
+				'__Secure-1PAPISID / 3PAPISID': 'Používá se pro personalizaci reklam a měření interakcí. Souvisí s vaším Google účtem.',
+				'__Secure-1PSID / 3PSID': 'Obsahují šifrované informace o vašem Google ID a posledním čase přihlášení. Klíčové pro vaši identitu.',
+				'__Secure-1PSIDCC / 3PSIDCC': 'Slouží k zabezpečení a ukládání uživatelských preferencí při zobrazování reklam Google.',
+				'__Secure-1PSIDTS / 3PSIDTS': 'Časové razítko a zabezpečení; pomáhají odhalovat podezřelou aktivitu a předcházet podvodům.',
+				'__Secure-BUCKET': 'Interní identifikátor pro zařazení uživatele do experimentálních funkcí Google (A/B testy).',
+				ADS_VISITOR_ID: 'Identifikátor návštěvníka pro sledování interakce s reklamami.',
+				APISID: 'Používá se k identifikaci uživatele při načtení vložených služeb Google (např. Maps nebo YouTube) na jiných webech.',
+				SAPISID: 'Bezpečná API verze identity cookie pro požadavky na služby Google a prevenci podvodů.',
+				SID: 'Podepsaný a šifrovaný identifikátor Google účtu používaný k udržení přihlášené relace.',
+				SSID: 'Související cookie k SID nastavená pouze přes HTTPS pro ochranu relace v bezpečném kontextu.',
+				HSID: 'Používá se k ověření identity uživatele a prevenci podvodného použití přihlašovacích údajů.',
+				NID: 'Ukládá jedinečné ID, preference vyhledávání a informace o personalizaci reklam.',
+				OTZ: 'Souhrnné statistiky návštěvnosti a informace o verzi vyhledávače.',
+				S: 'Identifikátor relace pro platební služby Google (billing UI), který drží stav nákupu nebo fakturace.',
+				SEARCH_SAMESITE: 'Pomáhá chránit proti CSRF útokům tím, že cookies jsou odesílány pouze v bezpečném kontextu.',
+				SIDCC: 'Bezpečnostní cookie pro doručování služeb Google a ochranu proti podvodům.'
+			},
+			de: {
+				AEC: 'Wird verwendet, um sicherzustellen, dass Anfragen innerhalb einer Sitzung vom Nutzer und nicht von anderen Seiten gestellt werden.',
+				SOCS: 'Speichert den Status des Nutzers in Bezug auf seine Cookie-Auswahl.',
+				'^_ga_': 'Wird von Google Analytics verwendet, um Daten darüber zu sammeln, wie oft ein Nutzer eine Website besucht hat, einschließlich des Datums des ersten und letzten Besuchs.',
+				_ga: 'Registriert eine eindeutige ID, die zur Erstellung statistischer Daten über die Nutzung der Website verwendet wird.',
+				'_gat_gtag_': 'Wird von Google Analytics verwendet, um die Anzahl der Anfragen an den Dienst zu begrenzen.',
+				_gid: 'Wird verwendet, um das Verhalten von Website-Besuchern zu verfolgen und sie über verschiedene Sitzungen hinweg zu erkennen, damit Google Analytics Traffic und Interaktionen analysieren kann.',
+				IDE: 'Wird von Google DoubleClick verwendet, um das Nutzerverhalten zu verfolgen und Werbung anhand früherer Interaktionen zu personalisieren.',
+				_gcl_au: 'Wird von Google AdSense verwendet, um Interaktionen mit Anzeigen zu verfolgen und Werbeinhalte zu optimieren.',
+				_fbp: 'Marketing-Cookie von Facebook Pixel zur Identifizierung von Besuchern und zum Tracking über Websites hinweg, die Facebook-Werbung nutzen.',
+				'^_pk_id': 'Speichert eine eindeutige Besucher-ID, die von Matomo Analytics verwendet wird, um wiederkehrende Besucher zu erkennen.',
+				'^_pk_ses': 'Sitzungs-Cookie von Matomo Analytics, das Seitenaufrufdaten für den aktuellen Besuch vorübergehend speichert.',
+				'^_pk_ref': 'Speichert Zuordnungsdetails (Referrer/Kampagne) für Matomo-Analytics-Berichte.',
+				mtm_consent: 'Speichert den Matomo-Einwilligungsstatus für diesen Besucher.',
+				mtm_cookie_consent: 'Speichert den Cookie-Einwilligungsstatus für Matomo, wenn der Cookie-Consent-Modus verwendet wird.',
+				ccwps_consent: 'Speichert die Einwilligungsentscheidungen des Besuchers in diesem Plugin, damit die gewählten Kategorien bei weiteren Seitenaufrufen berücksichtigt bleiben.',
+				ccwps_version: 'Speichert die Version der Einwilligungskonfiguration im Plugin, um Änderungen zu erkennen und gegebenenfalls eine neue Einwilligung anzufordern.',
+				'__Secure-1PAPISID / 3PAPISID': 'Wird zur Personalisierung von Anzeigen und zur Messung von Interaktionen verwendet. Sie ist mit Ihrem Google-Konto verknüpft.',
+				'__Secure-1PSID / 3PSID': 'Enthält verschlüsselte Informationen über Ihre Google-ID und den letzten Anmeldezeitpunkt. Wichtig für Ihre Identität.',
+				'__Secure-1PSIDCC / 3PSIDCC': 'Dient der Sicherheit und Speicherung von Nutzerpräferenzen bei der Anzeige von Google-Werbung.',
+				'__Secure-1PSIDTS / 3PSIDTS': 'Zeitstempel und Sicherheitsinformationen; helfen, verdächtige Aktivitäten zu erkennen und Betrug zu verhindern.',
+				'__Secure-BUCKET': 'Interner Identifikator, um Nutzer experimentellen Google-Funktionen (A/B-Tests) zuzuordnen.',
+				ADS_VISITOR_ID: 'Besucher-ID zur Nachverfolgung von Interaktionen mit Anzeigen.',
+				APISID: 'Wird zur Identifizierung genutzt, wenn eingebettete Google-Dienste (z. B. Maps oder YouTube) auf anderen Websites geladen werden.',
+				SAPISID: 'Sichere API-Identitäts-Cookie für Google-Dienstanfragen und Betrugsprävention.',
+				SID: 'Signierte und verschlüsselte Google-Konto-ID zur Aufrechterhaltung angemeldeter Sitzungen.',
+				SSID: 'Verwandte Cookie zu SID, nur über HTTPS gesetzt, um Sitzungen in sicheren Kontexten zu schützen.',
+				HSID: 'Dient zur Überprüfung der Nutzeridentität und zur Verhinderung missbräuchlicher Nutzung von Anmeldedaten.',
+				NID: 'Speichert eindeutige ID, Suchpräferenzen und Informationen zur Anzeigenpersonalisierung.',
+				OTZ: 'Zusammengefasste Nutzungsstatistiken und Informationen zur Version der Suchmaschine.',
+				S: 'Sitzungskennzeichen für Google-Abrechnungsdienste (Billing UI), das Kauf- oder Rechnungsstatus hält.',
+				SEARCH_SAMESITE: 'Hilft beim Schutz vor CSRF-Angriffen, indem Cookies nur in sicheren Kontexten gesendet werden.',
+				SIDCC: 'Sicherheits-Cookie für Google-Dienste und Betrugsschutz.'
+			},
+			fr: {
+				AEC: 'Utilisé pour garantir que les requêtes effectuées pendant une session proviennent bien de l’utilisateur et non d’autres pages.',
+				SOCS: 'Stocke l’état de l’utilisateur concernant ses choix de cookies.',
+				'^_ga_': 'Utilisé par Google Analytics pour collecter des données sur le nombre de visites d’un utilisateur, ainsi que les dates de première et de dernière visite.',
+				_ga: 'Enregistre un identifiant unique utilisé pour générer des données statistiques sur l’utilisation du site par le visiteur.',
+				'_gat_gtag_': 'Utilisé par Google Analytics pour limiter le nombre de requêtes adressées au service.',
+				_gid: 'Utilisé pour suivre le comportement des visiteurs du site et les identifier au fil des sessions afin que Google Analytics puisse analyser le trafic et les interactions.',
+				IDE: 'Utilisé par Google DoubleClick pour suivre le comportement de l’utilisateur et personnaliser les publicités selon ses interactions précédentes.',
+				_gcl_au: 'Utilisé par Google AdSense pour suivre les interactions des utilisateurs avec les annonces et optimiser le contenu publicitaire.',
+				_fbp: 'Cookie marketing de Facebook Pixel utilisé pour identifier les visiteurs et les suivre sur les sites utilisant des publicités Facebook.',
+				'^_pk_id': 'Stocke un identifiant visiteur unique utilisé par Matomo Analytics pour reconnaître les visiteurs récurrents.',
+				'^_pk_ses': 'Cookie de session Matomo Analytics utilisé pour stocker temporairement les données de pages vues pendant la visite en cours.',
+				'^_pk_ref': 'Stocke les détails d’attribution (référent/campagne) pour les rapports Matomo Analytics.',
+				mtm_consent: 'Stocke l’état du consentement Matomo pour ce visiteur.',
+				mtm_cookie_consent: 'Stocke l’état du consentement aux cookies pour Matomo lorsque le mode cookie-consent est utilisé.',
+				ccwps_consent: 'Stocke les choix de consentement du visiteur dans ce plugin afin que les catégories sélectionnées restent respectées lors des chargements suivants.',
+				ccwps_version: 'Stocke la version de la configuration du consentement dans le plugin afin de détecter les changements et demander un nouveau consentement si nécessaire.',
+				'__Secure-1PAPISID / 3PAPISID': 'Utilisee pour personnaliser les annonces et mesurer les interactions. Liee a votre compte Google.',
+				'__Secure-1PSID / 3PSID': 'Contient des informations chiffrees sur votre identifiant Google et l\'heure de votre derniere connexion.',
+				'__Secure-1PSIDCC / 3PSIDCC': 'Sert a la securite et au stockage des preferences utilisateur pour l\'affichage des annonces Google.',
+				'__Secure-1PSIDTS / 3PSIDTS': 'Horodatage et securite ; aide a detecter les activites suspectes et a prevenir la fraude.',
+				'__Secure-BUCKET': 'Identifiant interne pour affecter les utilisateurs a des fonctionnalites experimentales Google (tests A/B).',
+				ADS_VISITOR_ID: 'Identifiant visiteur pour suivre les interactions avec les annonces.',
+				APISID: 'Utilisee pour identifier l\'utilisateur lorsque des services Google integres (Maps, YouTube) sont charges sur d\'autres sites.',
+				SAPISID: 'Version securisee de cookie d\'identite API pour les requetes Google et la prevention de la fraude.',
+				SID: 'Identifiant de compte Google signe et chiffre pour maintenir la session connectee.',
+				SSID: 'Cookie associe a SID, transmis uniquement via HTTPS pour proteger la session.',
+				HSID: 'Utilisee pour verifier l\'identite utilisateur et prevenir l\'utilisation frauduleuse des identifiants.',
+				NID: 'Stocke un identifiant unique, les preferences de recherche et des informations de personnalisation publicitaire.',
+				OTZ: 'Statistiques d\'usage agregees et informations sur la version du moteur de recherche.',
+				S: 'Identifiant de session pour les services de facturation Google (billing UI), conservant l\'etat achat/facturation.',
+				SEARCH_SAMESITE: 'Aide a proteger contre les attaques CSRF en n\'autorisant l\'envoi des cookies que dans un contexte securise.',
+				SIDCC: 'Cookie de securite pour les services Google et la protection contre la fraude.'
+			},
+			es: {
+				AEC: 'Se utiliza para garantizar que las solicitudes dentro de una sesión las realice el usuario y no otras páginas.',
+				SOCS: 'Almacena el estado del usuario respecto a sus elecciones de cookies.',
+				'^_ga_': 'Google Analytics la utiliza para recopilar datos sobre cuántas veces un usuario ha visitado un sitio web, incluidas las fechas de la primera y la última visita.',
+				_ga: 'Registra un identificador único que se utiliza para generar datos estadísticos sobre cómo el visitante usa el sitio web.',
+				'_gat_gtag_': 'Google Analytics la utiliza para limitar el número de solicitudes al servicio.',
+				_gid: 'Se utiliza para rastrear el comportamiento de los visitantes y reconocerlos durante distintas sesiones, lo que permite a Google Analytics analizar el tráfico y las interacciones.',
+				IDE: 'Google DoubleClick la utiliza para rastrear el comportamiento del usuario y personalizar anuncios según interacciones anteriores.',
+				_gcl_au: 'Google AdSense la utiliza para rastrear interacciones con anuncios y optimizar el contenido publicitario.',
+				_fbp: 'Cookie de marketing de Facebook Pixel utilizada para identificar visitantes y rastrearlos entre sitios que usan anuncios de Facebook.',
+				'^_pk_id': 'Almacena un identificador único del visitante utilizado por Matomo Analytics para reconocer a los visitantes recurrentes.',
+				'^_pk_ses': 'Cookie de sesión de Matomo Analytics utilizada para almacenar temporalmente datos de páginas vistas durante la visita actual.',
+				'^_pk_ref': 'Almacena detalles de atribución (referente/campaña) para los informes de Matomo Analytics.',
+				mtm_consent: 'Almacena el estado de consentimiento de Matomo para este visitante.',
+				mtm_cookie_consent: 'Almacena el estado de consentimiento de cookies para Matomo cuando se utiliza el modo cookie-consent.',
+				ccwps_consent: 'Almacena las elecciones de consentimiento del visitante en este plugin para que las categorías seleccionadas sigan respetándose en las siguientes cargas de página.',
+				ccwps_version: 'Almacena la versión de la configuración de consentimiento en el plugin para detectar cambios y solicitar un nuevo consentimiento cuando sea necesario.',
+				'__Secure-1PAPISID / 3PAPISID': 'Se utiliza para personalizar anuncios y medir interacciones. Esta vinculada a tu cuenta de Google.',
+				'__Secure-1PSID / 3PSID': 'Contiene informacion cifrada sobre tu ID de Google y el ultimo inicio de sesion.',
+				'__Secure-1PSIDCC / 3PSIDCC': 'Se usa para seguridad y para guardar preferencias del usuario en la publicidad de Google.',
+				'__Secure-1PSIDTS / 3PSIDTS': 'Marca temporal y seguridad; ayuda a detectar actividad sospechosa y prevenir fraude.',
+				'__Secure-BUCKET': 'Identificador interno para asignar usuarios a funciones experimentales de Google (A/B tests).',
+				ADS_VISITOR_ID: 'Identificador de visitante para rastrear interacciones con anuncios.',
+				APISID: 'Se usa para identificar al usuario cuando se cargan servicios Google incrustados (Maps o YouTube) en otros sitios.',
+				SAPISID: 'Version segura de cookie de identidad API para solicitudes de Google y prevencion de fraude.',
+				SID: 'Identificador de cuenta Google firmado y cifrado para mantener sesiones iniciadas.',
+				SSID: 'Cookie relacionada con SID, enviada solo por HTTPS para proteger la sesion.',
+				HSID: 'Se utiliza para verificar la identidad del usuario y prevenir el uso fraudulento de credenciales.',
+				NID: 'Guarda ID unica, preferencias de busqueda e informacion de personalizacion publicitaria.',
+				OTZ: 'Estadisticas agregadas de uso e informacion de version del motor de busqueda.',
+				S: 'Identificador de sesion para servicios de facturacion de Google (billing UI), mantiene estado de compra/facturacion.',
+				SEARCH_SAMESITE: 'Ayuda a proteger contra ataques CSRF asegurando que las cookies se envien solo en contextos seguros.',
+				SIDCC: 'Cookie de seguridad para servicios de Google y proteccion antifraude.'
+			},
+			pl: {
+				AEC: 'Służy do zapewnienia, że żądania w ramach sesji są wykonywane przez użytkownika, a nie przez inne strony.',
+				SOCS: 'Przechowuje stan użytkownika dotyczący jego wyborów cookies.',
+				'^_ga_': 'Używana przez Google Analytics do zbierania danych o tym, ile razy użytkownik odwiedził witrynę, w tym dat pierwszej i ostatniej wizyty.',
+				_ga: 'Rejestruje unikalny identyfikator używany do generowania danych statystycznych o sposobie korzystania z witryny przez odwiedzającego.',
+				'_gat_gtag_': 'Używana przez Google Analytics do ograniczania liczby żądań do usługi.',
+				_gid: 'Służy do śledzenia zachowania odwiedzających i rozpoznawania ich podczas różnych sesji, dzięki czemu Google Analytics może analizować ruch i interakcje.',
+				IDE: 'Używana przez Google DoubleClick do śledzenia zachowania użytkownika i personalizacji reklam na podstawie wcześniejszych interakcji.',
+				_gcl_au: 'Używana przez Google AdSense do śledzenia interakcji użytkowników z reklamami oraz optymalizacji treści reklamowych.',
+				_fbp: 'Marketingowe cookie Facebook Pixel służące do identyfikacji odwiedzających i śledzenia ich między witrynami korzystającymi z reklam Facebooka.',
+				'^_pk_id': 'Przechowuje unikalny identyfikator odwiedzającego używany przez Matomo Analytics do rozpoznawania powracających użytkowników.',
+				'^_pk_ses': 'Sesyjne cookie Matomo Analytics używane do tymczasowego przechowywania danych o odsłonach podczas bieżącej wizyty.',
+				'^_pk_ref': 'Przechowuje dane atrybucji (źródło/kampania) do raportów Matomo Analytics.',
+				mtm_consent: 'Przechowuje stan zgody Matomo dla tego odwiedzającego.',
+				mtm_cookie_consent: 'Przechowuje stan zgody na cookies dla Matomo, gdy używany jest tryb cookie-consent.',
+				ccwps_consent: 'Przechowuje wybory zgody użytkownika w tej wtyczce, aby wybrane kategorie były respektowane przy kolejnych odsłonach.',
+				ccwps_version: 'Przechowuje wersję konfiguracji zgody we wtyczce, aby wykrywać zmiany i w razie potrzeby poprosić o nową zgodę.',
+				'__Secure-1PAPISID / 3PAPISID': 'Uzywana do personalizacji reklam i pomiaru interakcji. Powiazana z Twoim kontem Google.',
+				'__Secure-1PSID / 3PSID': 'Zawiera zaszyfrowane informacje o Twoim identyfikatorze Google i czasie ostatniego logowania.',
+				'__Secure-1PSIDCC / 3PSIDCC': 'Sluzy do zabezpieczen i zapisywania preferencji uzytkownika przy wyswietlaniu reklam Google.',
+				'__Secure-1PSIDTS / 3PSIDTS': 'Znacznik czasu i zabezpieczenia; pomagaja wykrywac podejrzana aktywnosc i zapobiegac oszustwom.',
+				'__Secure-BUCKET': 'Wewnetrzny identyfikator przypisujacy uzytkownika do eksperymentalnych funkcji Google (testy A/B).',
+				ADS_VISITOR_ID: 'Identyfikator odwiedzajacego do sledzenia interakcji z reklamami.',
+				APISID: 'Sluzy do identyfikacji uzytkownika, gdy osadzone uslugi Google (np. Maps lub YouTube) laduja sie na innych stronach.',
+				SAPISID: 'Bezpieczna wersja ciasteczka tozsamosci API dla zapytan Google i ochrony przed naduzyciami.',
+				SID: 'Podpisany i szyfrowany identyfikator konta Google utrzymujacy zalogowana sesje.',
+				SSID: 'Powiazane z SID ciasteczko wysylane tylko przez HTTPS dla ochrony sesji.',
+				HSID: 'Uzywane do weryfikacji tozsamosci uzytkownika i zapobiegania oszustwom z danymi logowania.',
+				NID: 'Przechowuje unikalny ID, preferencje wyszukiwania i informacje o personalizacji reklam.',
+				OTZ: 'Zbiorcze statystyki ruchu i informacje o wersji wyszukiwarki.',
+				S: 'Identyfikator sesji dla uslug rozliczeniowych Google (billing UI), przechowuje stan zakupu/rozliczenia.',
+				SEARCH_SAMESITE: 'Pomaga chronic przed atakami CSRF, zapewniajac wysylanie cookies tylko w bezpiecznym kontekscie.',
+				SIDCC: 'Ciasteczko bezpieczenstwa dla uslug Google i ochrony przed naduzyciami.'
+			},
+			hu: {
+				AEC: 'Arra szolgál, hogy biztosítsa: a munkameneten belüli kéréseket a felhasználó, ne más oldalak indítsák.',
+				SOCS: 'Tárolja a felhasználó állapotát a cookie-választásai tekintetében.',
+				'^_ga_': 'A Google Analytics használja annak gyűjtésére, hogy egy felhasználó hányszor látogatta meg a webhelyet, beleértve az első és utolsó látogatás dátumát is.',
+				_ga: 'Egyedi azonosítót rögzít, amelyet statisztikai adatok készítésére használnak arról, hogyan használja a látogató a webhelyet.',
+				'_gat_gtag_': 'A Google Analytics használja a szolgáltatás felé irányuló kérések számának korlátozására.',
+				_gid: 'A webhelylátogatók viselkedésének nyomon követésére és azonosítására szolgál különböző munkamenetek során, hogy a Google Analytics elemezhesse a forgalmat és az interakciókat.',
+				IDE: 'A Google DoubleClick használja a felhasználói viselkedés követésére és a hirdetések személyre szabására a korábbi interakciók alapján.',
+				_gcl_au: 'A Google AdSense használja a hirdetésekkel kapcsolatos interakciók követésére és a hirdetési tartalom optimalizálására.',
+				_fbp: 'A Facebook Pixel marketing cookie-ja, amely a látogatók azonosítására és a Facebook-hirdetéseket használó webhelyek közötti követésre szolgál.',
+				'^_pk_id': 'A Matomo Analytics által használt egyedi látogatóazonosítót tárolja a visszatérő látogatók felismeréséhez.',
+				'^_pk_ses': 'A Matomo Analytics munkamenet-cookie-ja, amely ideiglenesen tárolja az aktuális látogatás oldalmegtekintési adatait.',
+				'^_pk_ref': 'Attribúciós adatokat (hivatkozó/kampány) tárol a Matomo Analytics riportjaihoz.',
+				mtm_consent: 'Tárolja a Matomo hozzájárulási állapotát ennél a látogatónál.',
+				mtm_cookie_consent: 'Tárolja a Matomo cookie-hozzájárulási állapotát, amikor a cookie-consent mód van használatban.',
+				ccwps_consent: 'Tárolja a látogató hozzájárulási választásait ebben a bővítményben, hogy a kiválasztott kategóriák a következő oldalbetöltéseknél is érvényesek maradjanak.',
+				ccwps_version: 'Tárolja a hozzájárulási konfiguráció verzióját a bővítményben, hogy a módosításokat észlelje és szükség esetén új hozzájárulást kérjen.',
+				'__Secure-1PAPISID / 3PAPISID': 'Hirdetesek szemelyre szabasa es interakciok merese celjabol hasznaljak. Osszefugg a Google-fiokkal.',
+				'__Secure-1PSID / 3PSID': 'Titkositott informaciokat tartalmaz a Google-azonositorol es az utolso bejelentkezes idejerol.',
+				'__Secure-1PSIDCC / 3PSIDCC': 'Biztonsagi es felhasznaloi preferencia tarolasi celokat szolgal a Google-hirdeteseknel.',
+				'__Secure-1PSIDTS / 3PSIDTS': 'Idobelyeg es biztonsagi funkcio; segit a gyanus tevekenyseg felismereseben es a csalások megelozeseben.',
+				'__Secure-BUCKET': 'Belso azonosito, amely a felhasznalot Google kiserleti funkciokhoz (A/B tesztekhez) rendeli.',
+				ADS_VISITOR_ID: 'Latogatoi azonosito a hirdetes-interakciok kovetesehez.',
+				APISID: 'A felhasznalo azonositasa celjabol hasznaljak, amikor beagyazott Google-szolgaltatasok (pl. Maps vagy YouTube) toltodnek be mas oldalakon.',
+				SAPISID: 'Biztonsagos API-identitas cookie Google-keresekhez es csalásmegelozeshez.',
+				SID: 'Alairt es titkositott Google-fiokazonosito a bejelentkezett munkamenet fenntartasahoz.',
+				SSID: 'SID-hez kapcsolodo cookie, amelyet csak HTTPS-en kuldenek a munkamenet vedelme erdekeben.',
+				HSID: 'A felhasznalo azonossaganak ellenorzesere es a bejelentkezesi adatokkal valo visszaeles megelozesere szolgal.',
+				NID: 'Egyedi azonosítot, keresesi preferenciakat es hirdetes-szemelyreszabasi informaciokat tarol.',
+				OTZ: 'Osszesitett hasznalati statisztikak es a keresomotor verzioinformacioi.',
+				S: 'Munkamenet-azonosito a Google szamlazasi feluleteihez (billing UI), a vasarlasi/szamlazasi allapot tarolasahoz.',
+				SEARCH_SAMESITE: 'Segit vedeni a CSRF tamadasok ellen azzal, hogy a cookie-k csak biztonsagos kontextusban kuldhetok.',
+				SIDCC: 'Biztonsagi cookie a Google szolgaltatasokhoz es a csalás elleni vedelemhez.'
+			},
+			it: {
+				AEC: 'Viene utilizzato per garantire che le richieste all\'interno di una sessione siano effettuate dall\'utente e non da altre pagine.',
+				SOCS: 'Memorizza lo stato dell\'utente riguardo alle sue scelte sui cookie.',
+				'^_ga_': 'Viene utilizzato da Google Analytics per raccogliere dati su quante volte un utente ha visitato un sito web, comprese le date della prima e dell\'ultima visita.',
+				_ga: 'Registra un ID univoco utilizzato per generare dati statistici su come il visitatore utilizza il sito web.',
+				'_gat_gtag_': 'Viene utilizzato da Google Analytics per limitare il numero di richieste al servizio.',
+				_gid: 'Viene utilizzato per tracciare il comportamento dei visitatori del sito e riconoscerli durante diverse sessioni, consentendo a Google Analytics di analizzare traffico e interazioni.',
+				IDE: 'Viene utilizzato da Google DoubleClick per tracciare il comportamento dell\'utente e personalizzare gli annunci in base alle interazioni precedenti.',
+				_gcl_au: 'Viene utilizzato da Google AdSense per tracciare le interazioni con gli annunci e ottimizzare i contenuti pubblicitari.',
+				_fbp: 'Cookie di marketing di Facebook Pixel usato per identificare i visitatori e tracciarli tra siti che utilizzano annunci Facebook.',
+				'^_pk_id': 'Memorizza un ID visitatore univoco utilizzato da Matomo Analytics per riconoscere i visitatori di ritorno.',
+				'^_pk_ses': 'Cookie di sessione di Matomo Analytics usato per memorizzare temporaneamente i dati delle visualizzazioni di pagina durante la visita corrente.',
+				'^_pk_ref': 'Memorizza i dettagli di attribuzione (referrer/campagna) per i report di Matomo Analytics.',
+				mtm_consent: 'Memorizza lo stato di consenso Matomo per questo visitatore.',
+				mtm_cookie_consent: 'Memorizza lo stato del consenso ai cookie per Matomo quando viene utilizzata la modalità cookie-consent.',
+				ccwps_consent: 'Memorizza le scelte di consenso del visitatore in questo plugin, così le categorie selezionate restano rispettate nei caricamenti successivi della pagina.',
+				ccwps_version: 'Memorizza la versione della configurazione del consenso nel plugin per rilevare modifiche e richiedere un nuovo consenso quando necessario.',
+				'__Secure-1PAPISID / 3PAPISID': 'Usato per la personalizzazione degli annunci e la misurazione delle interazioni. Collegato al tuo account Google.',
+				'__Secure-1PSID / 3PSID': 'Contiene informazioni cifrate sul tuo ID Google e sull\'ora dell\'ultimo accesso.',
+				'__Secure-1PSIDCC / 3PSIDCC': 'Serve per sicurezza e salvataggio delle preferenze utente nella pubblicita Google.',
+				'__Secure-1PSIDTS / 3PSIDTS': 'Timestamp e sicurezza; aiuta a rilevare attivita sospette e prevenire frodi.',
+				'__Secure-BUCKET': 'Identificatore interno per assegnare gli utenti a funzionalita sperimentali Google (test A/B).',
+				ADS_VISITOR_ID: 'Identificatore visitatore per tracciare le interazioni con gli annunci.',
+				APISID: 'Usato per identificare l\'utente quando servizi Google incorporati (come Maps o YouTube) vengono caricati su altri siti.',
+				SAPISID: 'Versione sicura del cookie di identita API per richieste ai servizi Google e prevenzione frodi.',
+				SID: 'Identificatore account Google firmato e cifrato usato per mantenere la sessione autenticata.',
+				SSID: 'Cookie correlato a SID inviato solo via HTTPS per proteggere la sessione.',
+				HSID: 'Usato per verificare l\'identita utente e prevenire l\'uso fraudolento delle credenziali di accesso.',
+				NID: 'Memorizza ID univoco, preferenze di ricerca e informazioni di personalizzazione pubblicitaria.',
+				OTZ: 'Statistiche aggregate di utilizzo e informazioni sulla versione del motore di ricerca.',
+				S: 'Identificatore di sessione per i servizi di fatturazione Google (billing UI), mantiene lo stato di acquisto/fatturazione.',
+				SEARCH_SAMESITE: 'Aiuta a proteggere dagli attacchi CSRF garantendo che i cookie siano inviati solo in contesti sicuri.',
+				SIDCC: 'Cookie di sicurezza per i servizi Google e la protezione antifrode.'
+			}
+		};
+	}
+
+	function getLocalizedCookieDescription(cookie) {
+		if (!cookie || !cookie.name) return cookie && cookie.desc ? cookie.desc : '';
+
+		var allTranslations = getPresetCookieDescriptionTranslations();
+		var normalized = normalizeLangCode(activeFrontendLang);
+		var base = normalized.split('-')[0];
+		var byLang = allTranslations[normalized] || allTranslations[base] || allTranslations.en || {};
+
+		return byLang[cookie.name] || cookie.desc || '';
+	}
+
 	/* ============================================
 	   UTILITIES
 	   ============================================ */
@@ -590,9 +912,6 @@
 		var position = C.bannerPosition || 'bottom-left';
 		var isBar    = layout === 'bar';
 
-		var poweredLabel = normalizePoweredByLabel(i18n.poweredBy);
-		var powered = '<div class="ccwps-banner-powered"><a href="https://wps.sk" target="_blank" rel="noopener">Powered by ' + esc(poweredLabel) + '</a></div>';
-
 		var logoHtml = '';
 		if (C.bannerLogoShow && C.bannerLogoUrl) {
 			var w = parseInt(C.bannerLogoWidth) || 40;
@@ -621,7 +940,6 @@
 						'</div>' +
 					'</div>' +
 					'<div class="ccwps-banner-desc">' + (i18n.bannerDescription || '') + '</div>' +
-					powered +
 				'</div>';
 		} else {
 			textHtml =
@@ -638,8 +956,7 @@
 				'<button class="ccwps-btn ccwps-btn-primary" id="ccwps-btn-accept">' + esc(i18n.acceptAll) + '</button>' +
 				'<button class="ccwps-btn ccwps-btn-ghost"   id="ccwps-btn-reject">' + esc(i18n.rejectAll) + '</button>' +
 				'<button class="ccwps-btn ccwps-btn-outline" id="ccwps-btn-pref">'   + esc(i18n.managePreferences) + '</button>' +
-			'</div>' +
-			(isBar ? '' : powered);
+			'</div>';
 
 		return el;
 	}
@@ -691,7 +1008,7 @@
 						'<td>' + esc(ck.name) + '</td>' +
 						'<td>' + (esc(ck.domain) || '—') + '</td>' +
 						'<td>' + (esc(ck.expiration) || '—') + '</td>' +
-						'<td>' + (esc(ck.desc) || '—') + '</td>' +
+						'<td>' + (esc(getLocalizedCookieDescription(ck)) || '—') + '</td>' +
 					'</tr>';
 				}
 				tableHtml =

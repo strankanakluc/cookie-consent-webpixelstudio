@@ -4,7 +4,7 @@ Tags: cookie consent, GDPR, cookie banner, ePrivacy, consent mode
 Requires at least: 5.9
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.3
+Stable tag: 1.04
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -124,6 +124,18 @@ The consent cookie is set client-side (not httpOnly) so the frontend can read it
 
 == Changelog ==
 
+= 1.04 =
+* Added plugin action link for direct access to Cookie Consent settings from the Plugins list.
+* Removed Powered by text from banner layouts; branding remains available in the floating consent tip popup.
+* Removed editable Powered by field from Translations settings to keep frontend branding consistent.
+* Improved frontend i18n fallback handling for consent labels and cookie table headers across all supported languages.
+* Added missing language preset keys for consent ID label and cookie table headers in all language presets.
+* Added new cookie preset groups: Google Targeting and Google Preferences.
+* Added automatic script-blocking presets for the new Google Targeting and Google Preferences preset groups.
+* Improved Google Targeting blocking rules to use more specific ad/targeting endpoints instead of broad google.com matching.
+* Added multilingual preset descriptions for the new Google cookies and localized preset durations in admin preset workflow.
+* Added frontend runtime localization for preset cookie descriptions based on the active banner language.
+
 = 1.0.3 =
 * Added Matomo integration settings (Matomo URL + Site ID) in the Settings tab.
 * Added new Matomo behavior toggle: strict no-tracking after reject (default) or optional anonymous cookieless measurement after reject.
@@ -161,6 +173,9 @@ The consent cookie is set client-side (not httpOnly) so the frontend can read it
 * Added predefined cookie and script presets for Google Analytics, Google Ads and Facebook Pixel
 
 == Upgrade Notice ==
+
+= 1.04 =
+Version 1.04 adds new Google Targeting and Google Preferences presets with auto-block rules, improves localization coverage and runtime translation behavior for cookie descriptions, removes Powered by from banner layouts (kept in floating tip), and adds a direct plugin settings action link in the Plugins list.
 
 = 1.0.3 =
 Version 1.0.3 adds full Matomo Analytics integration with strict no-tracking and optional anonymous cookieless modes, fixes duplicate pageview and lazy-loading issues, adds host-scoped Matomo blocking presets, introduces bulk delete with checkboxes in the Cookies and Blocking lists, adds Matomo installation screenshots with lightbox in the Settings tab, and expands translation coverage across all 8 supported languages.

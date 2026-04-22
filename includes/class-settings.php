@@ -278,15 +278,15 @@ class CCWPS_Settings {
 			'targetingDesc'     => (string) ( $settings['lang_targeting_desc'] ?? '' ),
 			'preferencesTitle'  => (string) ( $settings['lang_preferences_title'] ?? '' ),
 			'preferencesDesc'   => (string) ( $settings['lang_preferences_desc'] ?? '' ),
-			'poweredBy'         => $this->resolve_powered_by_text( $settings ),
-			'consentIdLabel'    => $this->resolve_frontend_text( $settings, 'lang_consent_id_label', 'ID vášho súhlasu', $admin_lang ),
-			'alwaysOn'          => $this->resolve_frontend_text( $settings, 'lang_always_on', 'Vždy aktívne', $admin_lang ),
-			'cookieName'        => $this->resolve_frontend_text( $settings, 'lang_cookie_name', 'Názov', $admin_lang ),
-			'cookieDomain'      => $this->resolve_frontend_text( $settings, 'lang_cookie_domain', 'Doména', $admin_lang ),
-			'cookieExpiration'  => $this->resolve_frontend_text( $settings, 'lang_cookie_expiration', 'Platnosť', $admin_lang ),
-			'cookieDescription' => $this->resolve_frontend_text( $settings, 'lang_cookie_description', 'Popis', $admin_lang ),
-			'consentDateLabel'  => $this->translate_frontend_label( $admin_lang, 'Dátum a čas' ),
-			'noConsentYet'      => $this->translate_frontend_label( $admin_lang, 'Súhlas nebol udelený.' ),
+			'poweredBy'         => 'Web Pixel Studio',
+			'consentIdLabel'    => $this->resolve_frontend_label_setting( $settings, 'lang_consent_id_label', 'consentIdLabel' ),
+			'alwaysOn'          => $this->resolve_frontend_label_setting( $settings, 'lang_always_on', 'alwaysOn' ),
+			'cookieName'        => $this->resolve_frontend_label_setting( $settings, 'lang_cookie_name', 'cookieName' ),
+			'cookieDomain'      => $this->resolve_frontend_label_setting( $settings, 'lang_cookie_domain', 'cookieDomain' ),
+			'cookieExpiration'  => $this->resolve_frontend_label_setting( $settings, 'lang_cookie_expiration', 'cookieExpiration' ),
+			'cookieDescription' => $this->resolve_frontend_label_setting( $settings, 'lang_cookie_description', 'cookieDescription' ),
+			'consentDateLabel'  => $this->get_frontend_label_translation( 'consentDateLabel', $admin_lang ),
+			'noConsentYet'      => $this->get_frontend_label_translation( 'noConsentYet', $admin_lang ),
 		];
 	}
 
@@ -316,19 +316,21 @@ class CCWPS_Settings {
 		foreach ( $all_presets as $lang_code => $preset ) {
 			$strings = isset( $preset['strings'] ) && is_array( $preset['strings'] ) ? $preset['strings'] : [];
 			$presets[ $lang_code ] = [
-				'consentIdLabel'    => $this->translate_frontend_label( $lang_code, 'ID vášho súhlasu' ),
-				'alwaysOn'          => $this->translate_frontend_label( $lang_code, 'Vždy aktívne' ),
-				'cookieName'        => $this->translate_frontend_label( $lang_code, 'Názov' ),
-				'cookieDomain'      => $this->translate_frontend_label( $lang_code, 'Doména' ),
-				'cookieExpiration'  => $this->translate_frontend_label( $lang_code, 'Platnosť' ),
-				'cookieDescription' => $this->translate_frontend_label( $lang_code, 'Popis' ),
-				'consentDateLabel'  => $this->translate_frontend_label( $lang_code, 'Dátum a čas' ),
-				'noConsentYet'      => $this->translate_frontend_label( $lang_code, 'Súhlas nebol udelený.' ),
+				'consentIdLabel'    => (string) ( $strings['lang_consent_id_label'] ?? $this->get_frontend_label_translation( 'consentIdLabel', $lang_code ) ),
+				'alwaysOn'          => (string) ( $strings['lang_always_on'] ?? $this->get_frontend_label_translation( 'alwaysOn', $lang_code ) ),
+				'cookieName'        => (string) ( $strings['lang_cookie_name'] ?? $this->get_frontend_label_translation( 'cookieName', $lang_code ) ),
+				'cookieDomain'      => (string) ( $strings['lang_cookie_domain'] ?? $this->get_frontend_label_translation( 'cookieDomain', $lang_code ) ),
+				'cookieExpiration'  => (string) ( $strings['lang_cookie_expiration'] ?? $this->get_frontend_label_translation( 'cookieExpiration', $lang_code ) ),
+				'cookieDescription' => (string) ( $strings['lang_cookie_description'] ?? $this->get_frontend_label_translation( 'cookieDescription', $lang_code ) ),
+				'consentDateLabel'  => $this->get_frontend_label_translation( 'consentDateLabel', $lang_code ),
+				'noConsentYet'      => $this->get_frontend_label_translation( 'noConsentYet', $lang_code ),
 			];
 
 			foreach ( $option_map as $source_key => $target_key ) {
 				$presets[ $lang_code ][ $target_key ] = (string) ( $strings[ $source_key ] ?? '' );
 			}
+
+			$presets[ $lang_code ]['poweredBy'] = 'Web Pixel Studio';
 		}
 
 		$current_lang = (string) ( $settings['admin_lang'] ?? 'sk' );
@@ -349,6 +351,129 @@ class CCWPS_Settings {
 		}
 
 		return $translated;
+	}
+
+	private function get_frontend_label_map(): array {
+		return [
+			'consentIdLabel' => [
+				'sk' => 'ID vášho súhlasu',
+				'en' => 'Your consent ID',
+				'cs' => 'ID vašeho souhlasu',
+				'de' => 'Ihre Einwilligungs-ID',
+				'fr' => 'Votre ID de consentement',
+				'es' => 'Su ID de consentimiento',
+				'pl' => 'ID Twojej zgody',
+				'hu' => 'Az Ön hozzájárulási azonosítója',
+				'it' => 'Il tuo ID di consenso',
+			],
+			'alwaysOn' => [
+				'sk' => 'Vždy aktívne',
+				'en' => 'Always active',
+				'cs' => 'Vždy aktivní',
+				'de' => 'Immer aktiv',
+				'fr' => 'Toujours actif',
+				'es' => 'Siempre activo',
+				'pl' => 'Zawsze aktywne',
+				'hu' => 'Mindig aktív',
+				'it' => 'Sempre attivo',
+			],
+			'cookieName' => [
+				'sk' => 'Názov',
+				'en' => 'Name',
+				'cs' => 'Název',
+				'de' => 'Name',
+				'fr' => 'Nom',
+				'es' => 'Nombre',
+				'pl' => 'Nazwa',
+				'hu' => 'Név',
+				'it' => 'Nome',
+			],
+			'cookieDomain' => [
+				'sk' => 'Doména',
+				'en' => 'Domain',
+				'cs' => 'Doména',
+				'de' => 'Domain',
+				'fr' => 'Domaine',
+				'es' => 'Dominio',
+				'pl' => 'Domena',
+				'hu' => 'Domain',
+				'it' => 'Dominio',
+			],
+			'cookieExpiration' => [
+				'sk' => 'Platnosť',
+				'en' => 'Expiration',
+				'cs' => 'Platnost',
+				'de' => 'Ablauf',
+				'fr' => 'Expiration',
+				'es' => 'Caducidad',
+				'pl' => 'Okres ważności',
+				'hu' => 'Lejárat',
+				'it' => 'Scadenza',
+			],
+			'cookieDescription' => [
+				'sk' => 'Popis',
+				'en' => 'Description',
+				'cs' => 'Popis',
+				'de' => 'Beschreibung',
+				'fr' => 'Description',
+				'es' => 'Descripción',
+				'pl' => 'Opis',
+				'hu' => 'Leírás',
+				'it' => 'Descrizione',
+			],
+			'consentDateLabel' => [
+				'sk' => 'Dátum a čas',
+				'en' => 'Date and time',
+				'cs' => 'Datum a čas',
+				'de' => 'Datum und Uhrzeit',
+				'fr' => 'Date et heure',
+				'es' => 'Fecha y hora',
+				'pl' => 'Data i godzina',
+				'hu' => 'Dátum és idő',
+				'it' => 'Data e ora',
+			],
+			'noConsentYet' => [
+				'sk' => 'Súhlas nebol udelený.',
+				'en' => 'Consent has not been granted.',
+				'cs' => 'Souhlas nebyl udělen.',
+				'de' => 'Es wurde noch keine Einwilligung erteilt.',
+				'fr' => 'Le consentement n\'a pas encore été accordé.',
+				'es' => 'Aún no se ha otorgado el consentimiento.',
+				'pl' => 'Zgoda nie została jeszcze udzielona.',
+				'hu' => 'A hozzájárulás még nem lett megadva.',
+				'it' => 'Il consenso non è stato ancora concesso.',
+			],
+		];
+	}
+
+	private function get_frontend_label_translation( string $label_key, string $lang_code ): string {
+		$map       = $this->get_frontend_label_map()[ $label_key ] ?? [];
+		$lang_code = strtolower( $lang_code );
+		$base_lang = strtok( $lang_code, '-_' );
+
+		return $map[ $lang_code ]
+			?? ( is_string( $base_lang ) ? ( $map[ $base_lang ] ?? null ) : null )
+			?? $map['en']
+			?? '';
+	}
+
+	private function resolve_frontend_label_setting( array $settings, string $setting_key, string $label_key ): string {
+		$lang_code = (string) ( $settings['admin_lang'] ?? 'sk' );
+		$value     = $settings[ $setting_key ] ?? null;
+		$fallback  = $this->get_frontend_label_translation( $label_key, $lang_code );
+
+		if ( ! is_string( $value ) || '' === trim( $value ) ) {
+			return $fallback;
+		}
+
+		$value       = trim( $value );
+		$translations = $this->get_frontend_label_map()[ $label_key ] ?? [];
+
+		if ( in_array( $value, $translations, true ) ) {
+			return $fallback;
+		}
+
+		return $value;
 	}
 
 	private function resolve_frontend_text( array $settings, string $setting_key, string $default_text, string $lang_code ): string {
