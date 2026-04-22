@@ -849,24 +849,80 @@
 	}
 
 	/* ---- Color pickers ---- */
-	// Get palette from PHP (wp_localize_script)
-	var themePalette = (window.ccwpsAdmin && window.ccwpsAdmin.colorPalette && Array.isArray(window.ccwpsAdmin.colorPalette)) 
-		? window.ccwpsAdmin.colorPalette 
-		: [
-			'#000000', '#FFFFFF', '#F5F5F5', '#E5E5E5',
-			'#1a73e8', '#EA4335', '#FBBC04', '#34A853',
-			'#FF6D00', '#9C27B0'
-		];
-
-	// Initialize all color pickers with theme palette
 	$('.ccwps-color-picker').wpColorPicker({
-		palettes: themePalette,
 		change: function(event, ui) {
 			var key = $(this).attr('name');
 			var chk = $('[data-target="' + key + '"]');
 			if (chk.length) chk.prop('checked', false);
 		}
 	});
+
+	// Get palette from PHP (wp_localize_script) and render color swatches
+	var themePalette = (window.ccwpsAdmin && window.ccwpsAdmin.colorPalette && Array.isArray(window.ccwpsAdmin.colorPalette)) 
+		? window.ccwpsAdmin.colorPalette 
+		: [];
+
+	if (themePalette.length > 0) {
+		// Create palette swatch container for each color picker
+		$('.ccwps-color-picker').each(function() {
+			var $picker = $(this);
+			var pickerId = $picker.attr('id');
+			var $wrapper = $picker.closest('.ccwps-color-field-wrap');
+			
+			// Create swatches HTML
+			var swatchesHtml = '<div class="ccwps-color-swatches" data-picker="' + pickerId + '">';
+			swatchesHtml += '<small style="display:block;font-size:10px;color:#6b7280;margin-bottom:4px;text-transform:uppercase;letter-spacing:.3px;font-weight:600;">🎨 Farby z témy</small>';
+			swatchesHtml += '<div class="ccwps-swatches-grid">';
+			
+			themePalette.forEach(function(color) {
+				swatchesHtml += '<button type="button" class="ccwps-swatch" style="background-color:' + color + ';border:1px solid #e5e7eb;width:28px;height:28px;border-radius:4px;cursor:pointer;transition:all .15s;padding:0;" title="' + color + '" data-color="' + color + '" data-picker="' + pickerId + '"></button>';
+			});
+			
+			swatchesHtml += '</div></div>';
+			
+			// Insert after reset button
+			var $resetBtn = $wrapper.find('.ccwps-color-reset');
+			if ($resetBtn.length) {
+				$resetBtn.after(swatchesHtml);
+			} else {
+				$wrapper.append(swatchesHtml);
+			}
+		});
+
+		// Handle swatch clicks
+		$(document).on('click', '.ccwps-swatch', function(e) {
+			e.preventDefault();
+			var color = $(this).data('color');
+			var pickerId = $(this).data('picker');
+			var $picker = $('#' + pickerId);
+			
+			if ($picker.length) {
+				// Set color value
+				$picker.val(color);
+				
+				// Update color picker display
+				if (typeof $picker.wpColorPicker === 'function') {
+					$picker.wpColorPicker('color', color);
+				}
+				
+				// Trigger change event
+				$picker.trigger('change');
+				
+				// Uncheck transparent if set
+				var $transparent = $('.ccwps-transparent-check[data-target="' + pickerId + '"]');
+				if ($transparent.length) {
+					$transparent.prop('checked', false);
+				}
+			}
+		});
+
+		// Add hover effect to swatches
+		$(document).on('mouseenter', '.ccwps-swatch', function() {
+			$(this).css({'transform': 'scale(1.1)', 'box-shadow': '0 2px 8px rgba(0,0,0,0.15)'});
+		}).on('mouseleave', '.ccwps-swatch', function() {
+			$(this).css({'transform': 'scale(1)', 'box-shadow': 'none'});
+		});
+	}
 
 	function setColorPickerValue($picker, value) {
 		if (!$picker.length) return;
