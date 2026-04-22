@@ -263,6 +263,7 @@ return [
 	'Google Ads' => 'Google Ads',
 	'Google Tag Manager' => 'Google Tag Manager',
 	'Facebook Pixel' => 'Facebook Pixel',
+	'Žiadosť o pridanie predvoľby' => 'Solicitud para agregar preajuste',
 	'Použiť predvoľbu' => 'Aplicar preajuste',
 	'Predvoľby boli pridané.' => 'Se añadieron los preajustes.',
 	'Všetky vybrané predvoľby už existujú.' => 'Todos los preajustes seleccionados ya existen.',

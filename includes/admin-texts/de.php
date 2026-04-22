@@ -263,6 +263,7 @@ return [
 	'Google Ads' => 'Google Ads',
 	'Google Tag Manager' => 'Google Tag Manager',
 	'Facebook Pixel' => 'Facebook Pixel',
+	'Žiadosť o pridanie predvoľby' => 'Anfrage zum Hinzufugen einer Vorlage',
 	'Použiť predvoľbu' => 'Vorlage anwenden',
 	'Predvoľby boli pridané.' => 'Vorlagen wurden hinzugefügt.',
 	'Všetky vybrané predvoľby už existujú.' => 'Alle ausgewählten Vorlagen existieren bereits.',

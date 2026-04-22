@@ -263,6 +263,7 @@ return [
 	'Google Ads' => 'Google Ads',
 	'Google Tag Manager' => 'Google Tag Manager',
 	'Facebook Pixel' => 'Facebook Pixel',
+	'Žiadosť o pridanie predvoľby' => 'Elo beallitas hozzaadasanak kereleme',
 	'Použiť predvoľbu' => 'Előbeállítás alkalmazása',
 	'Predvoľby boli pridané.' => 'Az előbeállítások hozzáadva.',
 	'Všetky vybrané predvoľby už existujú.' => 'Az összes kijelölt előbeállítás már létezik.',

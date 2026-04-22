@@ -263,6 +263,7 @@ return [
 	'Google Ads' => 'Google Ads',
 	'Google Tag Manager' => 'Google Tag Manager',
 	'Facebook Pixel' => 'Facebook Pixel',
+	'Žiadosť o pridanie predvoľby' => 'Richiesta di aggiunta preset',
 	'Použiť predvoľbu' => 'Applica preset',
 	'Predvoľby boli pridané.' => 'I preset sono stati aggiunti.',
 	'Všetky vybrané predvoľby už existujú.' => 'Tutti i preset selezionati esistono già.',

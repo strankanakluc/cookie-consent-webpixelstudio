@@ -987,7 +987,7 @@ class CCWPS_Admin {
 				<div class="ccwps-modal-body">
 					<input type="hidden" id="ccwps-cookie-id">
 					<table class="ccwps-table">
-						<tr><th><label for="c-preset"><?php echo esc_html( $this->tx( 'Predpripravené predvoľby' ) ); ?></label></th><td><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;"><select id="c-preset" style="min-width:260px;"><option value=""><?php echo esc_html( $this->tx( 'Vyberte predvoľbu' ) ); ?></option><option value="google_necessary"><?php echo esc_html( $this->tx( 'Google Necessary' ) ); ?></option><option value="google_analytics"><?php echo esc_html( $this->tx( 'GA4 + GTM' ) ); ?></option><option value="google_targeting"><?php echo esc_html( $this->tx( 'Google Targeting' ) ); ?></option><option value="google_preferences"><?php echo esc_html( $this->tx( 'Google Preferences' ) ); ?></option><option value="google_ads"><?php echo esc_html( $this->tx( 'Google Ads' ) ); ?></option><option value="facebook_pixel"><?php echo esc_html( $this->tx( 'Facebook Pixel' ) ); ?></option><option value="matomo_analytics"><?php echo esc_html( $this->tx( 'Matomo Analytics' ) ); ?></option><option value="matomo_tag_manager"><?php echo esc_html( $this->tx( 'Matomo Tag Manager' ) ); ?></option></select><button type="button" class="button button-primary ccwps-btn-primary-action" id="ccwps-apply-cookie-preset"><?php echo esc_html( $this->tx( 'Použiť predvoľbu' ) ); ?></button></div></td></tr>
+						<tr><th><label for="c-preset"><?php echo esc_html( $this->tx( 'Predpripravené predvoľby' ) ); ?></label></th><td><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;"><select id="c-preset" style="min-width:260px;"><option value=""><?php echo esc_html( $this->tx( 'Vyberte predvoľbu' ) ); ?></option><option value="google_necessary"><?php echo esc_html( $this->tx( 'Google Necessary' ) ); ?></option><option value="google_analytics"><?php echo esc_html( $this->tx( 'GA4 + GTM' ) ); ?></option><option value="google_targeting"><?php echo esc_html( $this->tx( 'Google Targeting' ) ); ?></option><option value="google_preferences"><?php echo esc_html( $this->tx( 'Google Preferences' ) ); ?></option><option value="google_ads"><?php echo esc_html( $this->tx( 'Google Ads' ) ); ?></option><option value="facebook_pixel"><?php echo esc_html( $this->tx( 'Facebook Pixel' ) ); ?></option><option value="pixel_your_site"><?php echo esc_html( $this->tx( 'Pixel Your Site' ) ); ?></option><option value="matomo_analytics"><?php echo esc_html( $this->tx( 'Matomo Analytics' ) ); ?></option><option value="matomo_tag_manager"><?php echo esc_html( $this->tx( 'Matomo Tag Manager' ) ); ?></option></select><button type="button" class="button button-primary ccwps-btn-primary-action" id="ccwps-apply-cookie-preset"><?php echo esc_html( $this->tx( 'Použiť predvoľbu' ) ); ?></button></div></td></tr>
 						<tr><th><label for="c-name"><?php esc_html_e( 'Názov', 'cookie-consent-webpixelstudio' ); ?> <span class="required">*</span></label></th><td><input type="text" id="c-name" class="regular-text" placeholder="napr. _ga"></td></tr>
 						<tr><th><label for="c-domain"><?php esc_html_e( 'Doména', 'cookie-consent-webpixelstudio' ); ?></label></th><td><input type="text" id="c-domain" class="regular-text" placeholder="<?php echo esc_attr( $this->get_home_url_host() ); ?>"></td></tr>
 						<tr><th><label for="c-expiration"><?php esc_html_e( 'Platnosť', 'cookie-consent-webpixelstudio' ); ?></label></th><td><input type="text" id="c-expiration" class="regular-text" placeholder="napr. 2 roky, Relácia"></td></tr>
@@ -1077,7 +1077,7 @@ class CCWPS_Admin {
 				<div class="ccwps-modal-body">
 					<input type="hidden" id="ccwps-block-id">
 					<table class="ccwps-table">
-						<tr><th><label for="b-preset"><?php echo esc_html( $this->tx( 'Predpripravené predvoľby' ) ); ?></label></th><td><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;"><select id="b-preset" style="min-width:260px;"><option value=""><?php echo esc_html( $this->tx( 'Vyberte predvoľbu' ) ); ?></option><option value="ga"><?php echo esc_html( $this->tx( 'Google Analytics' ) ); ?></option><option value="gtm"><?php echo esc_html( $this->tx( 'Google Tag Manager' ) ); ?></option><option value="g_targeting"><?php echo esc_html( $this->tx( 'Google Targeting' ) ); ?></option><option value="g_preferences"><?php echo esc_html( $this->tx( 'Google Preferences' ) ); ?></option><option value="gads"><?php echo esc_html( $this->tx( 'Google Ads' ) ); ?></option><option value="fb"><?php echo esc_html( $this->tx( 'Facebook Pixel' ) ); ?></option><option value="mtm_analytics"><?php echo esc_html( $this->tx( 'Matomo Analytics' ) ); ?></option><option value="mtm_tag_manager"><?php echo esc_html( $this->tx( 'Matomo Tag Manager' ) ); ?></option></select><button type="button" class="button button-primary ccwps-btn-primary-action" id="ccwps-apply-block-preset"><?php echo esc_html( $this->tx( 'Použiť predvoľbu' ) ); ?></button></div></td></tr>
+						<tr><th><label for="b-preset"><?php echo esc_html( $this->tx( 'Predpripravené predvoľby' ) ); ?></label></th><td><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;"><select id="b-preset" style="min-width:260px;"><option value=""><?php echo esc_html( $this->tx( 'Vyberte predvoľbu' ) ); ?></option><option value="ga"><?php echo esc_html( $this->tx( 'Google Analytics' ) ); ?></option><option value="gtm"><?php echo esc_html( $this->tx( 'Google Tag Manager' ) ); ?></option><option value="g_targeting"><?php echo esc_html( $this->tx( 'Google Targeting' ) ); ?></option><option value="g_preferences"><?php echo esc_html( $this->tx( 'Google Preferences' ) ); ?></option><option value="gads"><?php echo esc_html( $this->tx( 'Google Ads' ) ); ?></option><option value="fb"><?php echo esc_html( $this->tx( 'Facebook Pixel' ) ); ?></option><option value="pys"><?php echo esc_html( $this->tx( 'Pixel Your Site' ) ); ?></option><option value="mtm_analytics"><?php echo esc_html( $this->tx( 'Matomo Analytics' ) ); ?></option><option value="mtm_tag_manager"><?php echo esc_html( $this->tx( 'Matomo Tag Manager' ) ); ?></option></select><button type="button" class="button button-primary ccwps-btn-primary-action" id="ccwps-apply-block-preset"><?php echo esc_html( $this->tx( 'Použiť predvoľbu' ) ); ?></button></div></td></tr>
 						<tr><th><label for="b-source"><?php esc_html_e( 'Zdroj skriptu', 'cookie-consent-webpixelstudio' ); ?> <span class="required">*</span></label><p class="desc"><?php esc_html_e( 'Fragment URL, napr. "google-analytics.com"', 'cookie-consent-webpixelstudio' ); ?></p></th><td><input type="text" id="b-source" class="large-text" placeholder="napr. google-analytics.com"></td></tr>
 						<tr><th><label for="b-category"><?php esc_html_e( 'Kategória', 'cookie-consent-webpixelstudio' ); ?></label></th><td><select id="b-category"><?php foreach ( $categories as $cat ) : ?><option value="<?php echo esc_attr( $cat ); ?>"><?php echo esc_html( ucfirst( $cat ) ); ?></option><?php endforeach; ?></select></td></tr>
 						<tr><th><label for="b-is-regex"><?php esc_html_e( 'Je Regex?', 'cookie-consent-webpixelstudio' ); ?></label></th><td><label class="ccwps-toggle"><input type="checkbox" id="b-is-regex"><span class="ccwps-toggle-slider"></span></label></td></tr>
@@ -2065,6 +2065,7 @@ class CCWPS_Admin {
 	}
 
 	private function sanitize_import_setting_value( string $key, $value ) {
+		// Color keys - accept hex colors (including 'transparent')
 		$color_keys = [
 			'primary_color', 'text_color', 'bg_color', 'btn_text_color',
 			'btn_primary_bg', 'btn_primary_bg_hv', 'btn_primary_txt',
@@ -2073,9 +2074,50 @@ class CCWPS_Admin {
 			'modal_bg', 'modal_header_bg', 'modal_footer_bg', 'modal_border', 'modal_text',
 			'cat_header_bg', 'cat_header_bg_hv', 'toggle_on_color', 'always_on_color',
 		];
-		$url_keys = [ 'icon_custom_url', 'banner_logo_url', 'banner_logo_link_url' ];
+		
+		// URL keys - accept full URLs
+		$url_keys = [ 'icon_custom_url', 'banner_logo_url', 'banner_logo_link_url', 'matomo_url' ];
+		
+		// HTML keys - allow sanitized HTML (wp_kses_post)
 		$html_keys = [ 'lang_banner_description', 'lang_necessary_desc', 'lang_analytics_desc', 'lang_targeting_desc', 'lang_preferences_desc' ];
+		
+		// Boolean keys (accept 0/1/true/false)
+		$bool_keys = [
+			'autorun', 'force_consent', 'auto_clear_cookies', 'page_scripts',
+			'hide_from_bots', 'reconsent', 'record_consents',
+			'frontend_detect_visitor_language', 'hide_empty_categories',
+			'banner_show_icon', 'banner_logo_show', 'matomo_anonymous_without_consent',
+		];
+		
+		// Integer keys (positive integers)
+		$int_keys = [
+			'delay', 'cookie_expiration', 'matomo_site_id',
+			'btn_border_radius', 'banner_border_radius', 'modal_border_radius', 'banner_logo_width',
+		];
+		
+		// String keys with predefined values (enums)
+		$enum_keys = [
+			'consent_mode_version' => [ 'off', 'v2', 'v3' ],
+			'banner_layout'        => [ 'box', 'bar', 'cloud' ],
+			'banner_position'      => [ 'bottom-left', 'bottom-right', 'bottom-center', 'top-left', 'top-right', 'top-center', 'middle-center' ],
+			'icon_position'        => [ 'bottom-right', 'bottom-left', 'top-right', 'top-left' ],
+			'icon_type'            => [ 'cookie', 'shield', 'settings', 'lock', 'custom' ],
+			'admin_lang'           => [ 'sk', 'en', 'cs', 'de', 'fr', 'es', 'pl', 'hu', 'it' ],
+		];
+		
+		// Shadow/font keys - free text strings
+		$text_keys = [ 'banner_shadow', 'font_family', 'cookie_path', 'cookie_domain', 'gtm_id' ];
+		
+		// Language text fields - sanitize as text
+		$lang_text_keys = [
+			'lang_banner_title', 'lang_accept_all', 'lang_reject_all', 'lang_manage_preferences',
+			'lang_save_preferences', 'lang_close', 'lang_necessary_title', 'lang_analytics_title',
+			'lang_targeting_title', 'lang_preferences_title', 'lang_powered_by', 'lang_consent_id_label',
+			'lang_always_on', 'lang_cookie_name', 'lang_cookie_domain', 'lang_cookie_expiration',
+			'lang_cookie_description',
+		];
 
+		// Handle color keys
 		if ( in_array( $key, $color_keys, true ) ) {
 			if ( ! is_string( $value ) ) {
 				return '';
@@ -2089,27 +2131,73 @@ class CCWPS_Admin {
 			return is_string( $color ) ? $color : '';
 		}
 
+		// Handle URL keys
 		if ( in_array( $key, $url_keys, true ) ) {
 			return esc_url_raw( is_scalar( $value ) ? (string) $value : '' );
 		}
 
+		// Handle HTML keys
 		if ( in_array( $key, $html_keys, true ) ) {
 			return wp_kses_post( is_scalar( $value ) ? (string) $value : '' );
 		}
 
+		// Handle boolean keys
+		if ( in_array( $key, $bool_keys, true ) ) {
+			if ( is_bool( $value ) ) {
+				return $value ? 1 : 0;
+			}
+			if ( is_int( $value ) ) {
+				return $value > 0 ? 1 : 0;
+			}
+			if ( is_string( $value ) ) {
+				return in_array( strtolower( $value ), [ '1', 'true', 'yes' ], true ) ? 1 : 0;
+			}
+			return 0;
+		}
+
+		// Handle integer keys
+		if ( in_array( $key, $int_keys, true ) ) {
+			$int_val = (int) $value;
+			return (string) max( 0, $int_val );
+		}
+
+		// Handle enum keys
+		if ( isset( $enum_keys[ $key ] ) ) {
+			$str_val = sanitize_text_field( (string) $value );
+			if ( in_array( $str_val, $enum_keys[ $key ], true ) ) {
+				return $str_val;
+			}
+			// Return default value if not valid
+			return '';
+		}
+
+		// Handle text keys (banner_shadow, font_family, cookie_path, etc.)
+		if ( in_array( $key, $text_keys, true ) ) {
+			return sanitize_text_field( is_scalar( $value ) ? (string) $value : '' );
+		}
+
+		// Handle language text keys
+		if ( in_array( $key, $lang_text_keys, true ) ) {
+			return sanitize_text_field( is_scalar( $value ) ? (string) $value : '' );
+		}
+
+		// Handle arrays (legacy support)
 		if ( is_array( $value ) ) {
 			$sanitized = map_deep( $value, 'sanitize_text_field' );
 			return wp_json_encode( $sanitized );
 		}
 
+		// Handle booleans (fallback)
 		if ( is_bool( $value ) ) {
 			return $value ? 1 : 0;
 		}
 
+		// Handle numbers (fallback)
 		if ( is_int( $value ) || is_float( $value ) ) {
 			return (string) $value;
 		}
 
+		// Default: sanitize as text
 		return sanitize_text_field( is_scalar( $value ) ? (string) $value : '' );
 	}
 
