@@ -382,47 +382,8 @@ class CCWPS_Ajax {
 			wp_die( -1 );
 		}
 
-		$palette = [];
-
-		// 1. Try to get palette from theme.json (Gutenberg / Full Site Editing)
-		$theme_json_file = get_template_directory() . '/theme.json';
-		if ( file_exists( $theme_json_file ) ) {
-			// Read and parse theme.json
-			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Using built-in WP function when available
-			$json_content = function_exists( 'wp_json_file_get_contents' ) 
-				? wp_json_file_get_contents( $theme_json_file )
-				: json_decode( file_get_contents( $theme_json_file ), true ); // phpcs:ignore
-
-			if ( is_array( $json_content ) && isset( $json_content['settings']['color']['palette'] ) ) {
-				$colors = $json_content['settings']['color']['palette'];
-				if ( is_array( $colors ) ) {
-					foreach ( $colors as $color ) {
-						if ( isset( $color['color'] ) && isset( $color['name'] ) ) {
-							$palette[] = [
-								'color' => sanitize_hex_color( $color['color'] ),
-								'name'  => sanitize_text_field( $color['name'] ),
-							];
-						}
-					}
-				}
-			}
-		}
-
-		// 2. If no palette found from theme.json, add a default web-safe palette
-		if ( empty( $palette ) ) {
-			$palette = [
-				[ 'color' => '#000000', 'name' => 'Black' ],
-				[ 'color' => '#FFFFFF', 'name' => 'White' ],
-				[ 'color' => '#F5F5F5', 'name' => 'Light Gray' ],
-				[ 'color' => '#E5E5E5', 'name' => 'Gray' ],
-				[ 'color' => '#1a73e8', 'name' => 'Blue' ],
-				[ 'color' => '#EA4335', 'name' => 'Red' ],
-				[ 'color' => '#FBBC04', 'name' => 'Yellow' ],
-				[ 'color' => '#34A853', 'name' => 'Green' ],
-				[ 'color' => '#FF6D00', 'name' => 'Orange' ],
-				[ 'color' => '#9C27B0', 'name' => 'Purple' ],
-			];
-		}
+		// Delegate to the shared extraction logic in CCWPS_Admin.
+		$palette = CCWPS_Admin::extract_palette_colors();
 
 		wp_send_json_success( [ 'palette' => $palette ] );
 	}

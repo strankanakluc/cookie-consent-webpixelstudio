@@ -207,6 +207,7 @@ return [
 	'Žiadny obrázok' => 'Nincsen kép',
 	'Farby z témy/builderu' => 'Téma/builder színek',
 	'Skryť farby témy' => 'Téma színek elrejtése',
+	'Obnoviť farby témy' => 'Téma színeinek frissítése',
 	'Vybrať vlastnú ikonu' => 'Válasszon egyéni ikont',
 	'Použiť tento obrázok' => 'E kép használata',
 	'Zadajte názov cookie.' => 'Adja meg a süti nevét.',

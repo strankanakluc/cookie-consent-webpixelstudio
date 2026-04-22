@@ -105,4 +105,5 @@ return [
 	'Náhľady krokov inštalácie Matomo Tag v administrácii Matomo.' => 'Preview of the Matomo Tag installation steps in the Matomo administration.',
 	'Farby z témy/builderu' => 'Theme/builder colours',
 	'Skryť farby témy' => 'Hide theme colours',
+	'Obnoviť farby témy' => 'Refresh theme colours',
 ];

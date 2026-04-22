@@ -207,6 +207,7 @@ return [
 	'Žiadny obrázok' => 'Aucune image',
 	'Farby z témy/builderu' => 'Couleurs du thème/builder',
 	'Skryť farby témy' => 'Masquer les couleurs du thème',
+	'Obnoviť farby témy' => 'Actualiser les couleurs du thème',
 	'Vybrať vlastnú ikonu' => 'Sélectionner icône',
 	'Použiť tento obrázok' => 'Utiliser cette image',
 	'Zadajte názov cookie.' => 'Entrez nom cookie.',

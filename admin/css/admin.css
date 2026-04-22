@@ -1149,6 +1149,13 @@ span.required { color: var(--cc-red); }
 	margin-left: 4px;
 }
 
+
+.ccwps-swatches-header {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
 .ccwps-color-swatches small {
 	display: block;
 	font-size: 10px;
@@ -1183,6 +1190,33 @@ span.required { color: var(--cc-red); }
 .ccwps-swatches-toggle-arrow {
 	font-size: 9px;
 	margin-left: 2px;
+}
+
+.ccwps-swatches-refresh {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: none;
+	border: 1px solid var(--cc-border, #e5e7eb);
+	border-radius: 4px;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	font-size: 13px;
+	color: var(--cc-gray-500, #6b7280);
+	padding: 0;
+	line-height: 1;
+	transition: background 0.12s, color 0.12s, transform 0.2s;
+	flex-shrink: 0;
+}
+
+.ccwps-swatches-refresh:hover {
+	background: var(--cc-bg-hover, #f3f4f6);
+	color: var(--cc-text, #111827);
+}
+
+.ccwps-swatches-refresh:active {
+	transform: rotate(180deg);
 }
 
 .ccwps-swatches-panel {

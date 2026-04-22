@@ -857,76 +857,111 @@
 		}
 	});
 
-	// Get palette from PHP (wp_localize_script) and render color swatches
-	var themePalette = (window.ccwpsAdmin && window.ccwpsAdmin.colorPalette && Array.isArray(window.ccwpsAdmin.colorPalette)) 
-		? window.ccwpsAdmin.colorPalette 
-		: [];
+	/* ---- Theme colour swatches ---- */
+	var ccwpsSwatchI18n = {
+		toggle:  (window.ccwpsAdmin && window.ccwpsAdmin.i18n && window.ccwpsAdmin.i18n.themeColorsToggle)  ? window.ccwpsAdmin.i18n.themeColorsToggle  : 'Farby z témy/builderu',
+		hide:    (window.ccwpsAdmin && window.ccwpsAdmin.i18n && window.ccwpsAdmin.i18n.themeColorsHide)    ? window.ccwpsAdmin.i18n.themeColorsHide    : 'Skryť farby témy',
+		refresh: (window.ccwpsAdmin && window.ccwpsAdmin.i18n && window.ccwpsAdmin.i18n.themeColorsRefresh) ? window.ccwpsAdmin.i18n.themeColorsRefresh : 'Obnoviť farby témy'
+	};
 
-	if (themePalette.length > 0) {
-		var i18nToggle = (window.ccwpsAdmin && window.ccwpsAdmin.i18n && window.ccwpsAdmin.i18n.themeColorsToggle)
-			? window.ccwpsAdmin.i18n.themeColorsToggle : 'Farby z témy/builderu';
-		var i18nHide = (window.ccwpsAdmin && window.ccwpsAdmin.i18n && window.ccwpsAdmin.i18n.themeColorsHide)
-			? window.ccwpsAdmin.i18n.themeColorsHide : 'Skryť farby témy';
-
-		// Build swatches HTML (shared for all pickers - same palette)
-		var swatchGridHtml = '<div class="ccwps-swatches-grid">';
-		themePalette.forEach(function(color) {
-			swatchGridHtml += '<button type="button" class="ccwps-swatch" style="background-color:' + color + ';" title="' + color + '" data-color="' + color + '"></button>';
+	/**
+	 * Build the inner <div class="ccwps-swatches-grid"> HTML from a hex array.
+	 */
+	function ccwpsSwatchGridHtml(palette) {
+		var html = '<div class="ccwps-swatches-grid">';
+		palette.forEach(function(color) {
+			html += '<button type="button" class="ccwps-swatch" style="background-color:' + color + ';" title="' + color + '" data-color="' + color + '"></button>';
 		});
-		swatchGridHtml += '</div>';
+		html += '</div>';
+		return html;
+	}
 
-		var swatchesBlockHtml = '<div class="ccwps-color-swatches">'
+	/**
+	 * Inject one .ccwps-color-swatches block after each reset button.
+	 * Called once on page load (with the PHP-provided palette).
+	 */
+	function ccwpsInitSwatches(palette) {
+		var panelContent = palette.length > 0 ? ccwpsSwatchGridHtml(palette) : '';
+		var blockHtml = '<div class="ccwps-color-swatches">'
+			+ '<div class="ccwps-swatches-header">'
 			+ '<button type="button" class="ccwps-swatches-toggle" aria-expanded="false">'
 			+ '<span class="ccwps-swatches-toggle-icon">🎨</span>'
-			+ '<span class="ccwps-swatches-toggle-label">' + i18nToggle + '</span>'
+			+ '<span class="ccwps-swatches-toggle-label">' + ccwpsSwatchI18n.toggle + '</span>'
 			+ '<span class="ccwps-swatches-toggle-arrow">▾</span>'
 			+ '</button>'
-			+ '<div class="ccwps-swatches-panel">' + swatchGridHtml + '</div>'
+			+ '<button type="button" class="ccwps-swatches-refresh" title="' + ccwpsSwatchI18n.refresh + '">↻</button>'
+			+ '</div>'
+			+ '<div class="ccwps-swatches-panel">' + panelContent + '</div>'
 			+ '</div>';
 
-		// Insert swatches after every reset button (each reset button is inside .ccwps-color-field-wrap)
 		$('.ccwps-color-reset').each(function() {
-			$(this).after(swatchesBlockHtml);
-		});
-
-		// Toggle panel open/close
-		$(document).on('click', '.ccwps-swatches-toggle', function() {
-			var $btn = $(this);
-			var $panel = $btn.next('.ccwps-swatches-panel');
-			var expanded = $btn.attr('aria-expanded') === 'true';
-
-			if (expanded) {
-				$panel.removeClass('is-open');
-				$btn.attr('aria-expanded', 'false');
-				$btn.find('.ccwps-swatches-toggle-label').text(i18nToggle);
-				$btn.find('.ccwps-swatches-toggle-arrow').text('▾');
-			} else {
-				$panel.addClass('is-open');
-				$btn.attr('aria-expanded', 'true');
-				$btn.find('.ccwps-swatches-toggle-label').text(i18nHide);
-				$btn.find('.ccwps-swatches-toggle-arrow').text('▴');
-			}
-		});
-
-		// Handle swatch clicks - find the related color picker via the .ccwps-color-field-wrap wrapper
-		$(document).on('click', '.ccwps-swatch', function(e) {
-			e.preventDefault();
-			var color = $(this).data('color');
-			// Find the input.ccwps-color-picker inside the same .ccwps-color-field-wrap
-			var $wrapper = $(this).closest('.ccwps-color-field-wrap');
-			var $picker = $wrapper.find('input.ccwps-color-picker');
-
-			if ($picker.length) {
-				setColorPickerValue($picker, color);
-				// Uncheck transparent checkbox if present
-				var key = $picker.attr('name');
-				var $transparent = $('.ccwps-transparent-check[data-target="' + key + '"]');
-				if ($transparent.length) {
-					$transparent.prop('checked', false);
-				}
-			}
+			$(this).after(blockHtml);
 		});
 	}
+
+	// Initialize with palette from PHP
+	var ccwpsInitialPalette = (window.ccwpsAdmin && Array.isArray(window.ccwpsAdmin.colorPalette))
+		? window.ccwpsAdmin.colorPalette : [];
+
+	if (ccwpsInitialPalette.length > 0 || $('.ccwps-color-reset').length > 0) {
+		ccwpsInitSwatches(ccwpsInitialPalette);
+	}
+
+	// Toggle panel open/close
+	$(document).on('click', '.ccwps-swatches-toggle', function() {
+		var $btn = $(this);
+		var $panel = $btn.closest('.ccwps-color-swatches').find('.ccwps-swatches-panel');
+		var expanded = $btn.attr('aria-expanded') === 'true';
+
+		if (expanded) {
+			$panel.removeClass('is-open');
+			$btn.attr('aria-expanded', 'false');
+			$btn.find('.ccwps-swatches-toggle-label').text(ccwpsSwatchI18n.toggle);
+			$btn.find('.ccwps-swatches-toggle-arrow').text('▾');
+		} else {
+			$panel.addClass('is-open');
+			$btn.attr('aria-expanded', 'true');
+			$btn.find('.ccwps-swatches-toggle-label').text(ccwpsSwatchI18n.hide);
+			$btn.find('.ccwps-swatches-toggle-arrow').text('▴');
+		}
+	});
+
+	// Refresh palette via AJAX
+	$(document).on('click', '.ccwps-swatches-refresh', function() {
+		var $btn = $(this);
+		$btn.prop('disabled', true).css('opacity', '0.5');
+
+		$.post(window.ccwpsAdmin.ajaxUrl, {
+			action: 'ccwps_get_theme_palette',
+			nonce:  window.ccwpsAdmin.nonce
+		}, function(response) {
+			if (response.success && Array.isArray(response.data.palette) && response.data.palette.length > 0) {
+				// Update every swatch panel on the page
+				$('.ccwps-swatches-panel').each(function() {
+					$(this).html(ccwpsSwatchGridHtml(response.data.palette));
+				});
+			}
+		}).always(function() {
+			$btn.prop('disabled', false).css('opacity', '');
+		});
+	});
+
+	// Handle swatch clicks
+	$(document).on('click', '.ccwps-swatch', function(e) {
+		e.preventDefault();
+		var color = $(this).data('color');
+		var $wrapper = $(this).closest('.ccwps-color-field-wrap');
+		var $picker = $wrapper.find('input.ccwps-color-picker');
+
+		if ($picker.length) {
+			setColorPickerValue($picker, color);
+			var key = $picker.attr('name');
+			var $transparent = $('.ccwps-transparent-check[data-target="' + key + '"]');
+			if ($transparent.length) {
+				$transparent.prop('checked', false);
+			}
+		}
+	});
 
 	function setColorPickerValue($picker, value) {
 		if (!$picker.length) return;

@@ -108,8 +108,9 @@ class CCWPS_Admin {
 				'enterScriptSource' => $this->tx( 'Zadajte zdroj skriptu.' ),
 				'copied'        => $this->tx( '✓ Skopírované!' ),
 				'copy'          => $this->t( 'admin_btn_copy', 'Kopírovať' ),
-				'themeColorsToggle' => $this->tx( 'Farby z témy/builderu' ),
-				'themeColorsHide'   => $this->tx( 'Skryť farby témy' ),
+				'themeColorsToggle'   => $this->tx( 'Farby z témy/builderu' ),
+				'themeColorsHide'     => $this->tx( 'Skryť farby témy' ),
+				'themeColorsRefresh'  => $this->tx( 'Obnoviť farby témy' ),
 				'mediaTitle'    => $this->tx( 'Vybrať vlastnú ikonu' ),
 				'mediaButton'   => $this->tx( 'Použiť tento obrázok' ),
 				'customIconAlt' => $this->tx( 'Vlastná ikona' ),
@@ -850,79 +851,114 @@ class CCWPS_Admin {
 	   THEME PALETTE EXTRACTION
 	   ================================================ */
 	public function get_theme_palette(): array {
+		return self::extract_palette_colors();
+	}
+
+	/**
+	 * Extract color palette from all available sources.
+	 * Used by both wp_localize_script (page load) and the AJAX refresh endpoint.
+	 *
+	 * Sources tried in order:
+	 *  1. WP Global Styles API — wp_get_global_settings() (WP 5.9+, covers FSE themes + user customizations)
+	 *  2. theme.json directly — child theme first, then parent
+	 *  3. Elementor global colors — system_colors + custom_colors from the active kit
+	 *
+	 * @return string[] Array of validated hex color strings e.g. ['#000000', '#ffffff']
+	 */
+	public static function extract_palette_colors(): array {
 		$palette = [];
 
-		// Try to get palette from theme.json (Gutenberg / Full Site Editing)
-		// Check both active theme and child theme
-		$json_files = array_unique( [
-			get_stylesheet_directory() . '/theme.json',
-			get_template_directory() . '/theme.json',
-		] );
-
-		foreach ( $json_files as $theme_json_file ) {
-			if ( ! file_exists( $theme_json_file ) ) {
-				continue;
-			}
-
-			$json_string  = file_get_contents( $theme_json_file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
-			$json_content = json_decode( $json_string, true );
-
-			if ( ! is_array( $json_content ) ) {
-				continue;
-			}
-
-			$color_sources = [];
-
-			// Standard palette
-			if ( isset( $json_content['settings']['color']['palette'] ) && is_array( $json_content['settings']['color']['palette'] ) ) {
-				$color_sources[] = $json_content['settings']['color']['palette'];
-			}
-
-			// Custom palette (some themes use this key)
-			if ( isset( $json_content['settings']['color']['palette']['theme'] ) && is_array( $json_content['settings']['color']['palette']['theme'] ) ) {
-				$color_sources[] = $json_content['settings']['color']['palette']['theme'];
-			}
-
-			foreach ( $color_sources as $colors ) {
-				foreach ( $colors as $color ) {
-					if ( ! isset( $color['color'] ) ) {
-						continue;
-					}
-					$raw = trim( (string) $color['color'] );
-
-					// Accept hex colors directly
-					$hex = sanitize_hex_color( $raw );
-					if ( $hex && ! in_array( $hex, $palette, true ) ) {
-						$palette[] = $hex;
+		// ------------------------------------------------------------------
+		// 1. WP Global Styles API (WP 5.9+)
+		//    Returns merged palette from theme.json + user customizations.
+		// ------------------------------------------------------------------
+		if ( function_exists( 'wp_get_global_settings' ) ) {
+			$global = wp_get_global_settings( [ 'color', 'palette' ] );
+			if ( is_array( $global ) ) {
+				// Priority: custom (user-saved overrides) > theme > default
+				foreach ( [ 'custom', 'theme', 'default' ] as $source ) {
+					if ( ! empty( $global[ $source ] ) && is_array( $global[ $source ] ) ) {
+						foreach ( $global[ $source ] as $color ) {
+							$hex = self::resolve_color( isset( $color['color'] ) ? (string) $color['color'] : '' );
+							if ( $hex && ! in_array( $hex, $palette, true ) ) {
+								$palette[] = $hex;
+							}
+						}
 					}
 				}
 			}
-
-			// If found colors, stop (child theme takes priority)
-			if ( ! empty( $palette ) ) {
-				break;
-			}
 		}
 
-		// Fallback: try WordPress Global Styles API (WP 5.9+)
-		if ( empty( $palette ) && function_exists( 'wp_get_global_settings' ) ) {
-			$global = wp_get_global_settings( [ 'color', 'palette' ] );
-			if ( ! empty( $global['theme'] ) && is_array( $global['theme'] ) ) {
-				foreach ( $global['theme'] as $color ) {
-					if ( isset( $color['color'] ) ) {
-						$hex = sanitize_hex_color( trim( (string) $color['color'] ) );
+		// ------------------------------------------------------------------
+		// 2. theme.json directly (child theme first, then parent)
+		//    Fallback for sites without WP 5.9+ or non-FSE themes that still
+		//    ship a theme.json.
+		// ------------------------------------------------------------------
+		if ( empty( $palette ) ) {
+			$json_files = array_unique( [
+				get_stylesheet_directory() . '/theme.json',
+				get_template_directory() . '/theme.json',
+			] );
+
+			foreach ( $json_files as $path ) {
+				if ( ! file_exists( $path ) ) {
+					continue;
+				}
+
+				$raw = function_exists( 'wp_json_file_get_contents' )
+					? wp_json_file_get_contents( $path )
+					: json_decode( file_get_contents( $path ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+
+				if ( ! is_array( $raw ) ) {
+					continue;
+				}
+
+				$candidates = [];
+				if ( ! empty( $raw['settings']['color']['palette'] ) && is_array( $raw['settings']['color']['palette'] ) ) {
+					$flat = $raw['settings']['color']['palette'];
+					// May be a flat array [ {color, name}, ... ] or keyed ['theme' => [...]]
+					if ( isset( $flat[0] ) ) {
+						$candidates[] = $flat;
+					} else {
+						foreach ( [ 'theme', 'custom', 'default' ] as $key ) {
+							if ( ! empty( $flat[ $key ] ) && is_array( $flat[ $key ] ) ) {
+								$candidates[] = $flat[ $key ];
+							}
+						}
+					}
+				}
+
+				foreach ( $candidates as $colors ) {
+					foreach ( $colors as $color ) {
+						$hex = self::resolve_color( isset( $color['color'] ) ? (string) $color['color'] : '' );
 						if ( $hex && ! in_array( $hex, $palette, true ) ) {
 							$palette[] = $hex;
 						}
 					}
 				}
+
+				if ( ! empty( $palette ) ) {
+					break;
+				}
 			}
-			if ( empty( $palette ) && ! empty( $global['default'] ) && is_array( $global['default'] ) ) {
-				foreach ( $global['default'] as $color ) {
-					if ( isset( $color['color'] ) ) {
-						$hex = sanitize_hex_color( trim( (string) $color['color'] ) );
-						if ( $hex && ! in_array( $hex, $palette, true ) ) {
-							$palette[] = $hex;
+		}
+
+		// ------------------------------------------------------------------
+		// 3. Elementor global colors (system + custom palette in the active kit)
+		// ------------------------------------------------------------------
+		if ( empty( $palette ) ) {
+			$kit_id = (int) get_option( 'elementor_active_kit', 0 );
+			if ( $kit_id > 0 ) {
+				$kit_settings = get_post_meta( $kit_id, '_elementor_page_settings', true );
+				if ( is_array( $kit_settings ) ) {
+					foreach ( [ 'system_colors', 'custom_colors' ] as $group ) {
+						if ( ! empty( $kit_settings[ $group ] ) && is_array( $kit_settings[ $group ] ) ) {
+							foreach ( $kit_settings[ $group ] as $item ) {
+								$hex = self::resolve_color( isset( $item['color'] ) ? (string) $item['color'] : '' );
+								if ( $hex && ! in_array( $hex, $palette, true ) ) {
+									$palette[] = $hex;
+								}
+							}
 						}
 					}
 				}
@@ -930,6 +966,48 @@ class CCWPS_Admin {
 		}
 
 		return $palette;
+	}
+
+	/**
+	 * Normalize a color value to a validated hex string.
+	 * Accepts #hex, CSS variables (resolved via preset lookup), rgb/rgba (ignored).
+	 *
+	 * @param string $raw Raw color value from theme data.
+	 * @return string Validated hex string, or empty string if not resolvable.
+	 */
+	private static function resolve_color( string $raw ): string {
+		$raw = trim( $raw );
+		if ( '' === $raw ) {
+			return '';
+		}
+
+		// Direct hex value
+		$hex = sanitize_hex_color( $raw );
+		if ( $hex ) {
+			return $hex;
+		}
+
+		// CSS variable: var(--wp--preset--color--slug)
+		if ( preg_match( '/^var\(--wp--preset--color--([a-z0-9-]+)\)$/i', $raw, $m ) ) {
+			$slug = $m[1];
+			if ( function_exists( 'wp_get_global_settings' ) ) {
+				$global = wp_get_global_settings( [ 'color', 'palette' ] );
+				foreach ( [ 'theme', 'custom', 'default' ] as $src ) {
+					if ( ! empty( $global[ $src ] ) && is_array( $global[ $src ] ) ) {
+						foreach ( $global[ $src ] as $preset ) {
+							if ( isset( $preset['slug'], $preset['color'] ) && $preset['slug'] === $slug ) {
+								$resolved = sanitize_hex_color( trim( (string) $preset['color'] ) );
+								if ( $resolved ) {
+									return $resolved;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		return '';
 	}
 
 	/* ================================================
