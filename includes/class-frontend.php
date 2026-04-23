@@ -388,10 +388,10 @@ class CCWPS_Frontend {
 		.ccwps-cl-table-wrap { overflow-x: auto; }
 		.ccwps-cl-table { width: 100%; border-collapse: collapse; }
 		.ccwps-cl-table th, .ccwps-cl-table td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #e5e7eb; }
-		.ccwps-cl-table th { background: #f9fafb; font-weight: 600; font-size: 13px; }
+		.ccwps-cl-table th { background: #f9fafb; color: #000000; font-weight: 600; font-size: 13px; }
 		.ccwps-cl-table tr:last-child td { border-bottom: none; }
+		.ccwps-cookie-list-table pre, .ccwps-cookie-list-table code, .ccwps-cookie-list-table samp, .ccwps-cookie-list-table kbd { tab-size: 4; border-radius: 3px; background: #c8c8c8; color: #000000; }
 		.ccwps-sc-regex { display: inline-block; background: #fef3c7; color: #92400e; font-size: 10px; padding: 1px 5px; border-radius: 3px; }
-		.ccwps-consent-id-wrap code { background: #f3f4f6; padding: 2px 8px; border-radius: 4px; font-size: 13px; }
 		</style>
 		<?php
 		return ob_get_clean();

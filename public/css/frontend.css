@@ -770,6 +770,17 @@
 .ccwps-ck-table tr:last-child td { border-bottom: none; }
 
 /* ============================================
+   CONSENT ID (shortcode)
+   ============================================ */
+.ccwps-consent-id-wrap .ccwps-sc-id-code {
+	background: #4f4f4f;
+	padding: 2px 8px;
+	border-radius: 4px;
+	font-size: 13px;
+	color: #ffff;
+}
+
+/* ============================================
    MANAGE CONSENT BUTTON (shortcode)
    ============================================ */
 .ccwps-manage-consent-btn {
