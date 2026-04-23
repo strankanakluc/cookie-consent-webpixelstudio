@@ -59,9 +59,10 @@ class CCWPS_Settings {
 			'banner_layout', 'banner_position', 'banner_show_icon',
 			'icon_position', 'icon_type', 'icon_custom_url', 'font_family',
 			'banner_logo_show', 'banner_logo_url', 'banner_logo_link_url', 'banner_logo_width',
+			'floating_icon_bg', 'floating_icon_bg_hv', 'floating_icon_color', 'floating_popup_bg', 'floating_popup_text',
 			// Banner box
 			'primary_color', 'banner_title_color', 'text_color', 'bg_color', 'btn_text_color', 'btn_border_radius',
-			'banner_border_radius', 'banner_shadow',
+			'banner_border_radius', 'banner_shadow', 'cloud_bg_opacity',
 			// Primary button (Accept All)
 			'btn_primary_bg', 'btn_primary_bg_hv', 'btn_primary_txt',
 			// Ghost button (Reject/Decline)
@@ -69,7 +70,7 @@ class CCWPS_Settings {
 			// Outline button (Manage Preferences)
 			'btn_outline_bg', 'btn_outline_bg_hv', 'btn_outline_txt', 'btn_outline_border',
 			// Modal window
-			'modal_bg', 'modal_header_bg', 'modal_footer_bg', 'modal_border', 'modal_border_radius', 'modal_text',
+			'modal_bg', 'modal_header_bg', 'modal_footer_bg', 'modal_border', 'modal_border_radius', 'modal_text', 'modal_consent_id_color',
 			// Category rows
 			'cat_header_bg', 'cat_header_bg_hv',
 			// Toggle switch & accents
@@ -217,13 +218,20 @@ class CCWPS_Settings {
 				// Base (legacy, also used as fallback)
 				'primary'       => $s['primary_color'],
 				'text'          => $s['text_color'],
-				'titleText'     => $s['banner_title_color'] ?: $s['text_color'],
+				'titleText'     => $s['banner_title_color'] ?: '#111827',
 				'descText'      => $s['text_color'],
 				'bg'            => $s['bg_color'],
 				'btnText'       => $s['btn_text_color'],
 				'btnRadius'     => (int) $s['btn_border_radius'],
+				// Floating icon & tip
+				'floatingIconBg'     => $s['floating_icon_bg']     ?: $s['primary_color'],
+				'floatingIconBgHv'   => $s['floating_icon_bg_hv']  ?: $s['primary_color'],
+				'floatingIconColor'  => $s['floating_icon_color']  ?: '#ffffff',
+				'floatingPopupBg'    => $s['floating_popup_bg']    ?: $s['bg_color'],
+				'floatingPopupText'  => $s['floating_popup_text']  ?: $s['text_color'],
 				// Banner box
 				'bannerBg'          => $s['bg_color'],
+				'cloudBgOpacity'    => max( 0, min( 100, (int) ( $s['cloud_bg_opacity'] ?: 70 ) ) ),
 				'bannerBorderRadius'=> (int) ( $s['banner_border_radius'] ?: $s['btn_border_radius'] ?: 12 ),
 				'bannerShadow'      => $s['banner_shadow'] ?: '0 12px 40px rgba(0,0,0,.18)',
 				// Primary button
@@ -247,6 +255,7 @@ class CCWPS_Settings {
 				'modalBorder'       => $s['modal_border']        ?: '#e5e7eb',
 				'modalBorderRadius' => (int) ( $s['modal_border_radius'] ?: $s['btn_border_radius'] ?: 12 ),
 				'modalText'         => $s['modal_text']          ?: $s['text_color'],
+				'modalConsentId'    => $s['modal_consent_id_color'] ?: ( $s['modal_text'] ?: $s['text_color'] ),
 				// Category rows
 				'catHeaderBg'       => $s['cat_header_bg']      ?: '#f9fafb',
 				'catHeaderBgHv'     => $s['cat_header_bg_hv']   ?: '#f0f2f5',

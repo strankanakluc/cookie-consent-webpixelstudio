@@ -562,6 +562,18 @@ class CCWPS_Admin {
 						<?php $this->tip( $this->tx( '💡 Ikona sa zobrazí v kruhu s farbou pozadia (primárna farba). Pre najlepší výsledok použite biely alebo priehľadný obrázok 50×50 px.' ) ); ?>
 					</td>
 				</tr>
+				<?php foreach ( [
+					'floating_icon_bg'    => [ __( 'Pozadie floating ikony', 'cookie-consent-webpixelstudio' ), __( 'Farba kruhu floating ikony.', 'cookie-consent-webpixelstudio' ), '#1a73e8' ],
+					'floating_icon_bg_hv' => [ __( 'Pozadie floating ikony (hover)', 'cookie-consent-webpixelstudio' ), __( 'Farba kruhu floating ikony po prejdení myšou.', 'cookie-consent-webpixelstudio' ), '#1557b0' ],
+					'floating_icon_color' => [ __( 'Farba obsahu floating ikony', 'cookie-consent-webpixelstudio' ), __( 'Farba SVG ikony alebo obsahu vo floating ikone.', 'cookie-consent-webpixelstudio' ), '#ffffff' ],
+					'floating_popup_bg'   => [ __( 'Pozadie popupu floating ikony', 'cookie-consent-webpixelstudio' ), __( 'Farba pozadia popupu po kliknutí na floating ikonu.', 'cookie-consent-webpixelstudio' ), '#ffffff' ],
+					'floating_popup_text' => [ __( 'Farba textu popupu floating ikony', 'cookie-consent-webpixelstudio' ), __( 'Farba textu a obsahu popupu po kliknutí na floating ikonu.', 'cookie-consent-webpixelstudio' ), '#111827' ],
+				] as $k => [ $lbl, $desc, $def ] ) : ?>
+				<tr>
+					<th><label for="<?php echo esc_attr( $k ); ?>"><?php echo esc_html( $lbl ); ?></label><p class="desc"><?php echo esc_html( $desc ); ?></p></th>
+					<td><?php $this->render_color_picker_with_reset( $k, (string) ( $s->get( $k ) ?: $def ), $def ); ?></td>
+				</tr>
+				<?php endforeach; ?>
 			</table>
 		</div>
 
@@ -669,6 +681,10 @@ class CCWPS_Admin {
 					<td><?php $this->render_color_picker_with_reset( $k, (string) ( $s->get( $k ) ?: $def ), $def ); ?></td>
 				</tr>
 				<?php endforeach; ?>
+				<tr>
+					<th><label for="cloud_bg_opacity"><?php esc_html_e( 'Priesvitnosť bannera Cloud (%)', 'cookie-consent-webpixelstudio' ); ?></label><p class="desc"><?php esc_html_e( 'Platí iba pre typ bannera Cloud. 0 = maximálne priehľadný, 100 = najmenej priehľadný.', 'cookie-consent-webpixelstudio' ); ?></p></th>
+					<td><input type="number" name="cloud_bg_opacity" id="cloud_bg_opacity" value="<?php echo esc_attr( $s->get( 'cloud_bg_opacity' ) ?: 70 ); ?>" min="0" max="100" class="small-text"></td>
+				</tr>
 			</table>
 		</div>
 
@@ -749,6 +765,7 @@ class CCWPS_Admin {
 				$modal_colors = [
 					'modal_bg'         => [ __( 'Pozadie modálu', 'cookie-consent-webpixelstudio' ),          '#ffffff' ],
 					'modal_text'       => [ __( 'Farba textu', 'cookie-consent-webpixelstudio' ),               '#111827' ],
+					'modal_consent_id_color' => [ __( 'Farba identifikátora súhlasu', 'cookie-consent-webpixelstudio' ), '#111827' ],
 					'modal_header_bg'  => [ __( 'Pozadie hlavičky', 'cookie-consent-webpixelstudio' ),         '#ffffff' ],
 					'modal_footer_bg'  => [ __( 'Pozadie päty', 'cookie-consent-webpixelstudio' ),             '#f9fafb' ],
 					'modal_border'     => [ __( 'Farba ohraničení', 'cookie-consent-webpixelstudio' ),          '#e5e7eb' ],
@@ -790,11 +807,17 @@ class CCWPS_Admin {
 			'banner_logo_url'     => '',
 			'banner_logo_link_url'=> '',
 			'banner_logo_width'   => '40',
+			'floating_icon_bg'    => '#1a73e8',
+			'floating_icon_bg_hv' => '#1557b0',
+			'floating_icon_color' => '#ffffff',
+			'floating_popup_bg'   => '#ffffff',
+			'floating_popup_text' => '#111827',
 			'font_family'         => 'inherit',
 			'btn_border_radius'   => '8',
 			'banner_border_radius'=> '12',
 			'modal_border_radius' => '12',
 			'bg_color'            => '#ffffff',
+			'cloud_bg_opacity'    => '70',
 			'banner_title_color'  => '#111827',
 			'text_color'          => '#111827',
 			'primary_color'       => '#1a73e8',
@@ -812,6 +835,7 @@ class CCWPS_Admin {
 			'btn_outline_border'  => '#1a73e8',
 			'modal_bg'            => '#ffffff',
 			'modal_text'          => '#111827',
+			'modal_consent_id_color' => '#111827',
 			'modal_header_bg'     => '#ffffff',
 			'modal_footer_bg'     => '#f9fafb',
 			'modal_border'        => '#e5e7eb',
@@ -2070,10 +2094,11 @@ class CCWPS_Admin {
 		// Color keys - accept hex colors (including 'transparent')
 		$color_keys = [
 			'primary_color', 'banner_title_color', 'text_color', 'bg_color', 'btn_text_color',
+			'floating_icon_bg', 'floating_icon_bg_hv', 'floating_icon_color', 'floating_popup_bg', 'floating_popup_text',
 			'btn_primary_bg', 'btn_primary_bg_hv', 'btn_primary_txt',
 			'btn_ghost_bg', 'btn_ghost_bg_hv', 'btn_ghost_txt', 'btn_ghost_txt_hv',
 			'btn_outline_bg', 'btn_outline_bg_hv', 'btn_outline_txt', 'btn_outline_border',
-			'modal_bg', 'modal_header_bg', 'modal_footer_bg', 'modal_border', 'modal_text',
+			'modal_bg', 'modal_header_bg', 'modal_footer_bg', 'modal_border', 'modal_text', 'modal_consent_id_color',
 			'cat_header_bg', 'cat_header_bg_hv', 'toggle_on_color', 'always_on_color',
 		];
 		
@@ -2094,7 +2119,7 @@ class CCWPS_Admin {
 		// Integer keys (positive integers)
 		$int_keys = [
 			'delay', 'cookie_expiration', 'matomo_site_id',
-			'btn_border_radius', 'banner_border_radius', 'modal_border_radius', 'banner_logo_width',
+			'btn_border_radius', 'banner_border_radius', 'modal_border_radius', 'banner_logo_width', 'cloud_bg_opacity',
 		];
 		
 		// String keys with predefined values (enums)
@@ -2160,6 +2185,11 @@ class CCWPS_Admin {
 		// Handle integer keys
 		if ( in_array( $key, $int_keys, true ) ) {
 			$int_val = (int) $value;
+
+			if ( 'cloud_bg_opacity' === $key ) {
+				return (string) max( 0, min( 100, $int_val ) );
+			}
+
 			return (string) max( 0, $int_val );
 		}
 

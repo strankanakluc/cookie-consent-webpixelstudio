@@ -78,12 +78,14 @@ class CCWPS_Ajax {
 		$allowed_keys = array_keys( $this->settings->get_all() );
 		$color_keys   = [
 			'primary_color', 'banner_title_color', 'text_color', 'bg_color', 'btn_text_color',
+			'floating_icon_bg', 'floating_icon_bg_hv', 'floating_icon_color', 'floating_popup_bg', 'floating_popup_text',
 			'btn_primary_bg', 'btn_primary_bg_hv', 'btn_primary_txt',
 			'btn_ghost_bg', 'btn_ghost_bg_hv', 'btn_ghost_txt', 'btn_ghost_txt_hv',
 			'btn_outline_bg', 'btn_outline_bg_hv', 'btn_outline_txt', 'btn_outline_border',
-			'modal_bg', 'modal_header_bg', 'modal_footer_bg', 'modal_border', 'modal_text',
+			'modal_bg', 'modal_header_bg', 'modal_footer_bg', 'modal_border', 'modal_text', 'modal_consent_id_color',
 			'cat_header_bg', 'cat_header_bg_hv', 'toggle_on_color', 'always_on_color',
 		];
+		$int_keys     = [ 'cloud_bg_opacity' ];
 		$html_keys    = [ 'lang_banner_description', 'lang_necessary_desc', 'lang_analytics_desc', 'lang_targeting_desc', 'lang_preferences_desc' ];
 
 		$posted = $this->get_posted_array( 'settings' );
@@ -101,6 +103,8 @@ class CCWPS_Ajax {
 			$value = $posted[ $key ];
 			if ( in_array( $key, $color_keys, true ) ) {
 				$value = ( $value === 'transparent' ) ? 'transparent' : sanitize_hex_color( $value );
+			} elseif ( in_array( $key, $int_keys, true ) ) {
+				$value = (string) max( 0, min( 100, absint( $value ) ) );
 			} elseif ( in_array( $key, $url_keys, true ) ) {
 				$value = esc_url_raw( $value );
 			} elseif ( in_array( $key, $html_keys, true ) ) {

@@ -12,6 +12,12 @@
 	--ccwps-desc-text:  var(--ccwps-text);
 	--ccwps-muted:      #6b7280;
 	--ccwps-bg:         #ffffff;
+	--ccwps-cloud-bg-opacity: 70%;
+	--ccwps-float-icon-bg: #1a73e8;
+	--ccwps-float-icon-bg-hv: #1557b0;
+	--ccwps-float-icon-color: #ffffff;
+	--ccwps-float-tip-bg: #ffffff;
+	--ccwps-float-tip-text: #111827;
 	--ccwps-btn-txt:    #ffffff;
 	--ccwps-border:     #e5e7eb;
 	--ccwps-surface:    #f9fafb;
@@ -137,9 +143,9 @@
 	padding: 36px 36px 28px;
 	max-width: 680px;
 	background:
-		linear-gradient(160deg, rgba(126, 190, 255, .20) 0%, rgba(188, 146, 255, .14) 46%, rgba(255, 255, 255, .06) 100%),
-		linear-gradient(180deg, rgba(255,255,255,.14) 0%, rgba(255,255,255,.04) 100%),
-		color-mix(in srgb, var(--ccwps-bg) 70%, transparent);
+		linear-gradient(160deg, color-mix(in srgb, rgba(126, 190, 255, .20) var(--ccwps-cloud-bg-opacity), transparent) 0%, color-mix(in srgb, rgba(188, 146, 255, .14) var(--ccwps-cloud-bg-opacity), transparent) 46%, color-mix(in srgb, rgba(255, 255, 255, .06) var(--ccwps-cloud-bg-opacity), transparent) 100%),
+		linear-gradient(180deg, color-mix(in srgb, rgba(255,255,255,.14) var(--ccwps-cloud-bg-opacity), transparent) 0%, color-mix(in srgb, rgba(255,255,255,.04) var(--ccwps-cloud-bg-opacity), transparent) 100%),
+		color-mix(in srgb, var(--ccwps-bg) var(--ccwps-cloud-bg-opacity), transparent);
 	border: 1px solid rgba(255, 255, 255, .52);
 	box-shadow:
 		0 36px 90px rgba(15, 23, 42, .36),
@@ -233,7 +239,7 @@
 .ccwps-banner-title {
 	font-size: 18px;
 	font-weight: 700;
-	color: var(--ccwps-text);
+	color: var(--ccwps-title-text);
 	margin-bottom: 10px;
 	line-height: 1.25;
 }
@@ -241,7 +247,7 @@
 .ccwps-banner-desc {
 	font-size: 13.5px;
 	line-height: 1.65;
-	color: var(--ccwps-muted);
+	color: var(--ccwps-desc-text);
 	margin-bottom: 22px;
 }
 
@@ -387,7 +393,7 @@
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
-	background: var(--ccwps-primary);
+	background: var(--ccwps-float-icon-bg);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -398,13 +404,14 @@
 	border: none;
 }
 #ccwps-floating-icon:hover {
+	background: var(--ccwps-float-icon-bg-hv);
 	transform: scale(1.1);
 	box-shadow: 0 6px 22px rgba(0,0,0,.32);
 }
 #ccwps-floating-icon svg {
 	width: 26px;
 	height: 26px;
-	color: #fff;
+	color: var(--ccwps-float-icon-color);
 	display: block;
 }
 
@@ -420,8 +427,8 @@
 .ccwps-tip-popup {
 	position: fixed;
 	z-index: 99991;
-	background: var(--ccwps-bg);
-	color: var(--ccwps-text);
+	background: var(--ccwps-float-tip-bg);
+	color: var(--ccwps-float-tip-text);
 	border: 1px solid var(--ccwps-border);
 	border-radius: var(--ccwps-r);
 	box-shadow: var(--ccwps-shadow);
@@ -438,7 +445,7 @@
 	right: 22px;
 	width: 13px;
 	height: 13px;
-	background: var(--ccwps-bg);
+	background: var(--ccwps-float-tip-bg);
 	border-right: 1px solid var(--ccwps-border);
 	border-bottom: 1px solid var(--ccwps-border);
 	transform: rotate(45deg);
@@ -453,7 +460,7 @@
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: .6px;
-	color: var(--ccwps-muted);
+	color: color-mix(in srgb, var(--ccwps-float-tip-text) 68%, transparent);
 	margin-bottom: 8px;
 }
 
@@ -466,18 +473,18 @@
 	border-radius: 6px;
 	padding: 7px 10px;
 	word-break: break-all;
-	color: var(--ccwps-text);
+	color: var(--ccwps-float-tip-text);
 	margin-bottom: 9px;
 	line-height: 1.4;
 }
 
 .ccwps-tip-date {
 	font-size: 12px;
-	color: var(--ccwps-muted);
+	color: color-mix(in srgb, var(--ccwps-float-tip-text) 72%, transparent);
 	margin-bottom: 16px;
 }
 .ccwps-tip-date strong {
-	color: var(--ccwps-text);
+	color: var(--ccwps-float-tip-text);
 	font-weight: 600;
 }
 
@@ -497,7 +504,7 @@
 	text-align: center;
 }
 .ccwps-tip-powered a {
-	color: #cacdd4;
+	color: color-mix(in srgb, var(--ccwps-float-tip-text) 64%, transparent);
 	text-decoration: none;
 	font-size: 11px;
 }
@@ -601,7 +608,7 @@
 .ccwps-consent-id-val {
 	font-size: 12px;
 	font-family: 'SFMono-Regular', Consolas, monospace;
-	color: var(--ccwps-text);
+	color: var(--ccwps-modal-consent-id, var(--ccwps-modal-txt, var(--ccwps-text)));
 	word-break: break-all;
 }
 

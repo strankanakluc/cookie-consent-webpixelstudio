@@ -644,11 +644,20 @@
 		var modalFooterBg = col.modalFooterBg || '#f9fafb';
 		var modalBorder   = col.modalBorder   || '#e5e7eb';
 		var modalTxt      = col.modalText     || col.text    || '#111827';
+		var modalConsentId = col.modalConsentId || modalTxt;
 
 		var catBg   = col.catHeaderBg    || '#f9fafb';
 		var catBgHv = col.catHeaderBgHv  || '#f0f2f5';
 		var toggleC = col.toggleOnColor  || col.primary || '#1a73e8';
 		var alwaysC = col.alwaysOnColor  || col.primary || '#1a73e8';
+		var floatIconBg   = col.floatingIconBg   || col.primary || '#1a73e8';
+		var floatIconBgHv = col.floatingIconBgHv || floatIconBg;
+		var floatIconC    = col.floatingIconColor || '#ffffff';
+		var floatPopupBg  = col.floatingPopupBg   || col.bg || '#ffffff';
+		var floatPopupTxt = col.floatingPopupText || col.text || '#111827';
+		var cloudBgOpacity = parseInt(col.cloudBgOpacity, 10);
+		if (isNaN(cloudBgOpacity)) cloudBgOpacity = 70;
+		cloudBgOpacity = Math.max(0, Math.min(100, cloudBgOpacity));
 
 		var style = document.createElement('style');
 		style.id  = 'ccwps-vars';
@@ -657,9 +666,15 @@
 			// Base
 			'--ccwps-primary:    ' + (col.primary || '#1a73e8') + ';',
 			'--ccwps-text:       ' + (col.text    || '#111827') + ';',
-			'--ccwps-title-text: ' + (col.titleText || col.text || '#111827') + ';',
+			'--ccwps-title-text: ' + (col.titleText || '#111827') + ';',
 			'--ccwps-desc-text:  ' + (col.descText  || col.text || '#111827') + ';',
 			'--ccwps-bg:         ' + (col.bg      || '#ffffff') + ';',
+			'--ccwps-cloud-bg-opacity: ' + cloudBgOpacity + '%;',
+			'--ccwps-float-icon-bg:    ' + floatIconBg + ';',
+			'--ccwps-float-icon-bg-hv: ' + floatIconBgHv + ';',
+			'--ccwps-float-icon-color: ' + floatIconC + ';',
+			'--ccwps-float-tip-bg:     ' + floatPopupBg + ';',
+			'--ccwps-float-tip-text:   ' + floatPopupTxt + ';',
 			'--ccwps-muted:      #6b7280;',
 			'--ccwps-border:     ' + modalBorder + ';',
 			'--ccwps-surface:    ' + catBg + ';',
@@ -690,6 +705,7 @@
 			'--ccwps-modal-border:       ' + modalBorder   + ';',
 			'--ccwps-modal-r:            ' + rMd + 'px;',
 			'--ccwps-modal-txt:          ' + modalTxt + ';',
+			'--ccwps-modal-consent-id:   ' + modalConsentId + ';',
 			// Category rows
 			'--ccwps-cat-bg:             ' + catBg   + ';',
 			'--ccwps-cat-bg-hv:          ' + catBgHv + ';',
@@ -1022,6 +1038,16 @@
 				'<button class="ccwps-btn ccwps-btn-ghost"   id="ccwps-btn-reject">' + esc(i18n.rejectAll) + '</button>' +
 				'<button class="ccwps-btn ccwps-btn-outline" id="ccwps-btn-pref">'   + esc(i18n.managePreferences) + '</button>' +
 			'</div>';
+
+		var titleEl = el.querySelector('.ccwps-banner-title');
+		if (titleEl) {
+			titleEl.style.color = col.titleText || '#111827';
+		}
+
+		var descEl = el.querySelector('.ccwps-banner-desc');
+		if (descEl) {
+			descEl.style.color = col.descText || col.text || '#111827';
+		}
 
 		return el;
 	}
